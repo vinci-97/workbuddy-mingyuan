@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>会议话题清单 · WorkBuddy × 腾讯SaaS行业部门 生态合作与收入联动</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f4f6fa; --card:#ffffff; --ink:#1a2233; --sub:#5b6b80; --mute:#8a94a6;
+  --line:#e8edf3; --brand:#00A88E; --brand2:#12b3d6; --brand-soft:#e9f8f4;
+  --blue:#2f6be5; --blue-soft:#eaf1ff; --orange:#e0902d; --orange-soft:#fff4e2;
+  --red:#e0524d; --red-soft:#fdeceb; --purple:#8b5cf6; --purple-soft:#f2ecff;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;padding:32px 20px 60px}
+.wrap{max-width:1080px;margin:0 auto}
+
+/* Header */
+.hero{background:linear-gradient(125deg,#00A88E 0%,#0d9488 45%,#12b3d6 100%);border-radius:20px;padding:32px 36px;color:#fff;position:relative;overflow:hidden;box-shadow:0 12px 34px rgba(0,150,130,.22)}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%)}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:4px 14px;font-size:12.5px;font-weight:600;margin-bottom:14px;backdrop-filter:blur(4px)}
+.hero h1{font-size:26px;font-weight:800;letter-spacing:.3px;margin-bottom:8px;position:relative}
+.hero .desc{font-size:14px;opacity:.94;max-width:760px;position:relative}
+.hero .meta{display:flex;gap:26px;margin-top:20px;flex-wrap:wrap;position:relative}
+.hero .meta .m{font-size:12.5px}
+.hero .meta .m b{display:block;font-size:16px;font-weight:800;margin-bottom:2px}
+.hero .meta .m span{opacity:.85}
+
+/* Positioning bar */
+.pos{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin:22px 0 8px}
+.pos .side{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 3px 12px rgba(20,40,80,.05)}
+.pos .side h3{font-size:14px;font-weight:800;color:var(--brand);margin-bottom:8px;display:flex;align-items:center;gap:7px}
+.pos .side.them h3{color:var(--blue)}
+.pos .side ul{list-style:none;font-size:12.5px;color:var(--sub)}
+.pos .side li{padding:3px 0 3px 16px;position:relative}
+.pos .side li::before{content:"";position:absolute;left:2px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--brand)}
+.pos .side.them li::before{background:var(--blue)}
+.pos .link{text-align:center;color:var(--mute)}
+.pos .link .lc{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#00A88E,#2f6be5);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 6px;box-shadow:0 6px 16px rgba(47,107,229,.25)}
+.pos .link span{font-size:11.5px;font-weight:600;color:var(--ink)}
+
+/* Section */
+.sec{margin-top:34px}
+.sec-h{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.sec-h .no{width:34px;height:34px;border-radius:10px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex-shrink:0}
+.sec-h.b .no{background:var(--blue)}
+.sec-h h2{font-size:19px;font-weight:800}
+.sec-h .sh{font-size:12.5px;color:var(--mute);margin-top:1px}
+
+/* Group label */
+.grp{display:flex;align-items:center;gap:8px;margin:20px 0 10px;font-size:14px;font-weight:700;color:var(--ink)}
+.grp .dot{width:9px;height:9px;border-radius:3px}
+
+/* Table */
+.tbl{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(20,40,80,.06);font-size:13px;margin-bottom:6px}
+.tbl thead th{background:#eef3f9;color:var(--sub);font-weight:700;text-align:left;padding:11px 14px;font-size:12px;white-space:nowrap;border-bottom:2px solid var(--line)}
+.tbl td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top;color:var(--sub)}
+.tbl td.topic{font-weight:700;color:var(--ink);width:22%}
+.tbl td.goal{width:30%}
+.tbl tr:hover td,.tbl tbody tr:hover td{background:#f8fbfd}
+.tbl .num{color:var(--brand);font-weight:800;margin-right:6px}
+.tbl.b thead th{background:var(--blue-soft)}
+.tbl.b .num{color:var(--blue)}
+.chip{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;margin:1px 3px 1px 0}
+.c-brand{background:var(--brand-soft);color:#00997a}
+.c-blue{background:var(--blue-soft);color:var(--blue)}
+.c-org{background:var(--orange-soft);color:var(--orange)}
+.c-red{background:var(--red-soft);color:var(--red)}
+.c-pur{background:var(--purple-soft);color:var(--purple)}
+.q{color:var(--ink);font-weight:600}
+.why{font-size:12px;color:var(--mute);margin-top:4px}
+
+/* Agenda */
+.agenda{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 6px;box-shadow:0 3px 14px rgba(20,40,80,.06)}
+.ag-row{display:flex;gap:14px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.ag-row:last-child{border-bottom:none}
+.ag-t{flex-shrink:0;width:74px;font-weight:800;color:var(--brand);font-size:13px}
+.ag-c b{display:block;font-size:13.5px;color:var(--ink);margin-bottom:2px}
+.ag-c span{font-size:12.5px;color:var(--sub)}
+
+/* Risk cards */
+.risks{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.risk{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--orange);border-radius:12px;padding:15px 17px;box-shadow:0 3px 12px rgba(20,40,80,.05)}
+.risk h4{font-size:13.5px;font-weight:800;color:var(--ink);margin-bottom:5px;display:flex;align-items:center;gap:7px}
+.risk p{font-size:12.5px;color:var(--sub)}
+.risk .ico{width:22px;height:22px;border-radius:7px;background:var(--orange-soft);color:var(--orange);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+
+.foot{margin-top:34px;text-align:center;font-size:12px;color:var(--mute);border-top:1px solid var(--line);padding-top:18px}
+.callout{background:linear-gradient(120deg,#e9f8f4,#eaf1ff);border-radius:14px;padding:16px 20px;font-size:13px;color:#33475b;margin:16px 0 4px;border:1px solid #d8ece6}
+.callout b{color:var(--ink)}
+@media print{body{background:#fff;padding:0}.hero{box-shadow:none}.tbl,.risk,.agenda,.pos .side{box-shadow:none}}
+@media(max-width:820px){.pos{grid-template-columns:1fr}.risks{grid-template-columns:1fr}.tbl td.topic,.tbl td.goal{width:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="tag">会议准备 · 内部战略协同</div>
+    <h1>WorkBuddy × 腾讯 SaaS 行业部门<br>生态合作与收入增长联动 · 沟通话题清单</h1>
+    <div class="desc">目标：与负责 SaaS 行业的兄弟部门打通"客户资源 × AI 入口/生态"，围绕用友、金蝶、销售易、百望、畅捷通等其存量 SaaS 客户，探讨生态共建与三方收入联动的合作框架、试点与分工。</div>
+    <div class="meta">
+      <div class="m"><b>2 大板块</b><span>核心议题 · 关键咨询</span></div>
+      <div class="m"><b>4 类合作议题</b><span>客户 / 产品 / 商业 / 落地</span></div>
+      <div class="m"><b>已有抓手</b><span>11 个 SaaS 客户专区 Demo</span></div>
+      <div class="m"><b>参考范式</b><span>富途定制版 · 薪福通共创</span></div>
+    </div>
+  </div>
+
+  <!-- 定位对齐 -->
+  <div class="pos">
+    <div class="side me">
+      <h3>◆ 我方（WorkBuddy 开放平台 / 内容生态）</h3>
+      <ul>
+        <li>国内第一的 AI 办公入口 + 流量与推荐位</li>
+        <li>Connector / Skill / Expert / 定制版专区能力</li>
+        <li>已产出 11 个 SaaS 客户专区 Demo（可直接演示）</li>
+        <li>成熟的 toC/toB 分成与共创计划机制</li>
+      </ul>
+    </div>
+    <div class="link">
+      <div class="lc">⇄</div>
+      <span>客户 × 入口<br>双向联动</span>
+    </div>
+    <div class="side them">
+      <h3>◇ 对方（腾讯 SaaS 行业部门）</h3>
+      <ul>
+        <li>掌握用友/金蝶/销售易等头部 SaaS 客户关系</li>
+        <li>既有商业合作、渠道与销售触达能力</li>
+        <li>行业客户的真实诉求、付费与考核口径</li>
+        <li>云消耗 / 客户增长的部门 KPI 抓手</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <b>会议定调建议：</b>先用 1-2 个已做好的 SaaS 客户专区 Demo（如金蝶/销售易）当"钩子"打开话题，让对方直观看到"他们的客户接入 WorkBuddy 后长什么样、能带来什么"，再顺势谈资源互通与收入联动，比纯 PPT 更有说服力。
+  </div>
+
+  <!-- 板块一：核心议题 -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="no">A</div>
+      <div><h2>核心沟通议题（我方要重点推动的）</h2>
+      <div class="sh">按"客户资源 → 产品形态 → 商业分成 → 落地分工"四层递进</div></div>
+    </div>
+
+    <div class="grp"><span class="dot" style="background:var(--brand)"></span>组 1 · 客户资源互通与联合拓客</div>
+    <table class="tbl">
+      <thead><tr><th>沟通议题</th><th>沟通要点 / 我方立场</th><th>期望达成的目标</th></tr></thead>
+      <tbody>
+        <tr><td class="topic"><span class="num">1</span>存量 SaaS 客户名录共享与分层</td>
+          <td>盘点对方手上用友/金蝶/销售易等客户，按"AI 意愿 × 数据价值 × 体量"共同分层，圈定首批可联合触达的目标客户。</td>
+          <td class="goal"><span class="chip c-brand">明确首批 5-8 家试点客户</span> 形成共享的客户优先级清单</td></tr>
+        <tr><td class="topic"><span class="num">2</span>双向导流机制</td>
+          <td>对方把 SaaS 客户引入 WorkBuddy 生态；WorkBuddy 把 885 万月活入口 + 推荐位/灵感案例反哺给这些 SaaS 客户获客（参考企查查导流打法）。</td>
+          <td class="goal"><span class="chip c-brand">谈定导流规则</span> 谁触达客户、如何联合站台</td></tr>
+        <tr><td class="topic"><span class="num">3</span>客户关系归属与"不抢客"边界</td>
+          <td>明确客户签约、服务、续费的主导方，避免两个内部团队重复触达或抢功；约定统一对客话术与联合品牌露出。</td>
+          <td class="goal"><span class="chip c-org">划清责任边界</span> 建立联合客户台账</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grp"><span class="dot" style="background:var(--purple)"></span>组 2 · 产品与生态形态（用已做好的专区当抓手）</div>
+    <table class="tbl">
+      <thead><tr><th>沟通议题</th><th>沟通要点 / 我方立场</th><th>期望达成的目标</th></tr></thead>
+      <tbody>
+        <tr><td class="topic"><span class="num">4</span>接入形态：Connector / Skill / Expert / 定制版专区</td>
+          <td>四种接入深度递进：连接器（数据被 AI 调用）→ Skill（一句话跑流程）→ 专家（给建议）→ 定制版专区（品牌化 AI 助手，即我做的这批 Demo）。对不同客户匹配不同形态。</td>
+          <td class="goal"><span class="chip c-pur">对齐接入路径图</span> 各客户走哪种形态达成共识</td></tr>
+        <tr><td class="topic"><span class="num">5</span>已产出的 11 个专区 Demo 如何用起来</td>
+          <td>用友/金蝶/销售易/百望/畅捷通等专区 Demo 已就绪，可作为对客提案物料、共创工作坊样板，甚至客户签约后的交付雏形。</td>
+          <td class="goal"><span class="chip c-pur">Demo 转化为销售物料</span> 纳入联合提案包</td></tr>
+        <tr><td class="topic"><span class="num">6</span>生态三阶段的联合演进节奏</td>
+          <td>工具 → 专家 → 工作流三阶段，双方约定分别在什么节点推动客户升级，让合作有清晰的价值兑现节奏。</td>
+          <td class="goal"><span class="chip c-pur">对齐演进路线</span> 匹配双方 KPI 兑现节奏</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grp"><span class="dot" style="background:var(--blue)"></span>组 3 · 商业模式与收入分成联动（会议重点）</div>
+    <table class="tbl">
+      <thead><tr><th>沟通议题</th><th>沟通要点 / 我方立场</th><th>期望达成的目标</th></tr></thead>
+      <tbody>
+        <tr><td class="topic"><span class="num">7</span>收入模型选型：toC 订阅/调用 vs toB 基础+增值</td>
+          <td>参考富途版：toC 走"订阅买断制 / 调用计费制"由 WorkBuddy 收费后分成；toB 走"基础版价 + 行业增值溢价 X"，溢价归 SaaS 方。讨论哪种更适合这批财税/CRM 客户。</td>
+          <td class="goal"><span class="chip c-blue">选定主推计费模型</span> 及适用客户类型</td></tr>
+        <tr><td class="topic"><span class="num">8</span>三方分成切分（WorkBuddy / SaaS 部门 / SaaS 客户）</td>
+          <td>本次多了"内部 SaaS 部门"这一方——需明确部门在其中的角色（渠道/联营/资源投入）与对应分成或内部结算口径。</td>
+          <td class="goal"><span class="chip c-blue">明确三方分账框架</span> 或内部结算原则</td></tr>
+        <tr><td class="topic"><span class="num">9</span>收入增长联动的核算口径</td>
+          <td>合作产生的增长如何归因与计量：新增客户数、云/Token 消耗、定制版订阅、客户 GMV 提升——找到双方 KPI 的"最大公约数"。</td>
+          <td class="goal"><span class="chip c-blue">统一增长归因口径</span> 便于双方各自报数</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grp"><span class="dot" style="background:var(--orange)"></span>组 4 · 落地节奏与组织协同</div>
+    <table class="tbl">
+      <thead><tr><th>沟通议题</th><th>沟通要点 / 我方立场</th><th>期望达成的目标</th></tr></thead>
+      <tbody>
+        <tr><td class="topic"><span class="num">10</span>试点客户 + 首个标杆案例</td>
+          <td>共同选 1 家高意愿客户先跑通"接入→提效账本→对外传播"，对标销售易/中兴新云打法做成可复制标杆。</td>
+          <td class="goal"><span class="chip c-org">锁定 1 个标杆试点</span> 及时间表</td></tr>
+        <tr><td class="topic"><span class="num">11</span>共创机制与分工（借"Buddy AI 生态共创计划")</td>
+          <td>用现成的共创计划（工作坊 + 专家陪跑 + 联合分发）承接落地；明确两个团队各自投入的人力、资源、责任。</td>
+          <td class="goal"><span class="chip c-org">确定协作机制</span> 与对接人/例会节奏</td></tr>
+        <tr><td class="topic"><span class="num">12</span>合规与数据边界（财税/银行级客户尤其关注）</td>
+          <td>MCP + OAuth 2.0、权限零越权、写操作人工确认——提前对齐这批客户的合规底线，避免落地阶段卡壳。</td>
+          <td class="goal"><span class="chip c-org">达成合规共识</span> 扫清接入顾虑</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 板块二：关键咨询问题 -->
+  <div class="sec">
+    <div class="sec-h b">
+      <div class="no">B</div>
+      <div><h2>关键咨询问题（要重点向对方了解的）</h2>
+      <div class="sh">进会前带着这些问题，把对方的"底牌"问清楚，才好设计合作方案</div></div>
+    </div>
+
+    <div class="grp"><span class="dot" style="background:var(--blue)"></span>客户侧 · 摸清资源盘子</div>
+    <table class="tbl b">
+      <thead><tr><th style="width:44%">要咨询的问题</th><th>为什么要问 / 期望获得的信息</th></tr></thead>
+      <tbody>
+        <tr><td><span class="num">1</span><span class="q">你们目前负责哪些 SaaS 客户？各自体量、行业、活跃度如何？</span></td>
+          <td class="why">摸清可合作的客户盘子有多大、结构如何，判断优先级。</td></tr>
+        <tr><td><span class="num">2</span><span class="q">与这些 SaaS 客户是什么合作关系？（转售 / 集成 / 联营 / 云消耗绑定）</span></td>
+          <td class="why">决定 WorkBuddy 能否借道其关系触达客户，以及分成怎么切。</td></tr>
+        <tr><td><span class="num">3</span><span class="q">哪些客户已在做 AI / Agent？诉求和进度如何？有没有踩坑？</span></td>
+          <td class="why">找出 AI 意愿最强、最容易先跑通的试点客户。</td></tr>
+        <tr><td><span class="num">4</span><span class="q">客户当前最痛的增长/留存问题是什么？</span></td>
+          <td class="why">对齐"WorkBuddy 能解什么痛"，让提案打中要害。</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grp"><span class="dot" style="background:var(--brand)"></span>商业侧 · 摸清钱怎么走</div>
+    <table class="tbl b">
+      <thead><tr><th style="width:44%">要咨询的问题</th><th>为什么要问 / 期望获得的信息</th></tr></thead>
+      <tbody>
+        <tr><td><span class="num">5</span><span class="q">客户目前怎么给你们付费？部门的营收/考核口径是什么？</span></td>
+          <td class="why">找到双方 KPI 的最大公约数，设计不冲突的联动模型。</td></tr>
+        <tr><td><span class="num">6</span><span class="q">你们和 SaaS 客户之间既有的分成/结算规则是怎样的？</span></td>
+          <td class="why">WorkBuddy 分成方案要嵌进既有规则，避免推倒重来。</td></tr>
+        <tr><td><span class="num">7</span><span class="q">这次合作，你们部门最想要的增长是什么？（客户数 / 云消耗 / 客户续费 / GMV）</span></td>
+          <td class="why">明确对方核心诉求，把 WorkBuddy 价值精准对齐其 KPI。</td></tr>
+        <tr><td><span class="num">8</span><span class="q">有没有联合拓客/联合定价的预算与授权？决策链多长？</span></td>
+          <td class="why">判断落地可行性与推进速度，避免谈了推不动。</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grp"><span class="dot" style="background:var(--purple)"></span>能力 / 技术侧 · 摸清接入条件</div>
+    <table class="tbl b">
+      <thead><tr><th style="width:44%">要咨询的问题</th><th>为什么要问 / 期望获得的信息</th></tr></thead>
+      <tbody>
+        <tr><td><span class="num">9</span><span class="q">这些客户的开放能力现状如何？（API / MCP / 数据接口成熟度）</span></td>
+          <td class="why">评估接入 Connector 的工作量与周期。</td></tr>
+        <tr><td><span class="num">10</span><span class="q">客户的合规/数据安全要求（尤其财税、银行系）有哪些红线？</span></td>
+          <td class="why">提前把合规方案准备好，避免落地阶段被卡。</td></tr>
+        <tr><td><span class="num">11</span><span class="q">客户对"定制版专区"这种品牌化 AI 助手形态怎么看？</span></td>
+          <td class="why">验证我做的这批专区 Demo 的产品方向是否对路。</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grp"><span class="dot" style="background:var(--orange)"></span>组织 / 协同侧 · 摸清怎么一起干</div>
+    <table class="tbl b">
+      <thead><tr><th style="width:44%">要咨询的问题</th><th>为什么要问 / 期望获得的信息</th></tr></thead>
+      <tbody>
+        <tr><td><span class="num">12</span><span class="q">你们期望的合作方式是什么？（联合 GTM / 我方赋能 / 客户自助）</span></td>
+          <td class="why">对齐协作模式，明确各自角色分工。</td></tr>
+        <tr><td><span class="num">13</span><span class="q">能投入哪些资源？（销售/客户成功/客户关系/预算）</span></td>
+          <td class="why">评估合作深度，规划联合团队与例会机制。</td></tr>
+        <tr><td><span class="num">14</span><span class="q">有没有近期一定要打的硬仗/时间窗口？（如季度考核、行业大会）</span></td>
+          <td class="why">借对方的节奏窗口，共同挑试点、定里程碑。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 建议议程 -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="no" style="background:var(--purple)">C</div>
+      <div><h2>建议会议议程（约 60 分钟）</h2>
+      <div class="sh">先建立共识、再摸底、后共创，留出决策收口时间</div></div>
+    </div>
+    <div class="agenda">
+      <div class="ag-row"><div class="ag-t">0-10′</div><div class="ag-c"><b>开场 + Demo 破冰</b><span>用金蝶/销售易专区 Demo 直观展示"他们客户接入后的样子"，快速建立合作想象</span></div></div>
+      <div class="ag-row"><div class="ag-t">10-25′</div><div class="ag-c"><b>双方业务盘点与目标对齐</b><span>各自现状、客户资源、核心 KPI（对应 A 组前置 + B 板块摸底问题）</span></div></div>
+      <div class="ag-row"><div class="ag-t">25-45′</div><div class="ag-c"><b>核心议题共议</b><span>客户互通 → 产品形态 → 收入分成联动（A 组 1-9，重点在组 3 商业模型）</span></div></div>
+      <div class="ag-row"><div class="ag-t">45-55′</div><div class="ag-c"><b>试点与分工收口</b><span>选定 1 家标杆试点、约定协作机制与对接人（A 组 10-12）</span></div></div>
+      <div class="ag-row"><div class="ag-t">55-60′</div><div class="ag-c"><b>结论与 Next Step</b><span>确认行动项、责任人、下次例会时间</span></div></div>
+    </div>
+  </div>
+
+  <!-- 风险 -->
+  <div class="sec">
+    <div class="sec-h">
+      <div class="no" style="background:var(--orange)">D</div>
+      <div><h2>会议注意事项与风险预判</h2>
+      <div class="sh">内部团队协同的常见摩擦点，提前想好应对</div></div>
+    </div>
+    <div class="risks">
+      <div class="risk"><h4><span class="ico">!</span>客户关系"谁主导"的敏感度</h4><p>对方可能担心 WorkBuddy 越过他们直接触达客户。开场即明确"客户关系仍以你方为主，我方做能力与入口赋能"，先卸下防备。</p></div>
+      <div class="risk"><h4><span class="ico">!</span>KPI 口径不一致</h4><p>对方要云消耗/客户数，我方要生态接入/Token 消耗。务必在会上找到共同的增长归因口径，否则后续报数各说各话。</p></div>
+      <div class="risk"><h4><span class="ico">!</span>分成三方切分容易谈崩</h4><p>比两方多一层。建议先谈"合作框架与试点"，分成给出"参考区间 + 试点后再定"，避免首次会议卡在钱上。</p></div>
+      <div class="risk"><h4><span class="ico">!</span>只谈愿景、不落试点</h4><p>务必带走 1 个明确的试点客户 + 时间表 + 对接人，否则容易变成"聊得很好、事后没动作"。</p></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    WorkBuddy 开放平台 · 内容生态 &nbsp;|&nbsp; 会议话题清单 &nbsp;|&nbsp; 依据：WorkBuddy 生态开放架构白皮书、富途定制版合作方案、薪福通接入价值分析报告
+  </div>
+
+</div>
+</body>
+</html>
