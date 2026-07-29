@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WorkBuddy 个人版 · 企业版 · 小程序版 能力全面对比</title>
+<style>
+  :root{
+    --bg:#f5f7fb; --card:#ffffff; --ink:#1a2233; --ink2:#4a5568; --ink3:#8a94a6;
+    --line:#e7ecf3; --line2:#eef2f7;
+    --p:#2f6be5; --p-soft:#eaf1ff;      /* 个人版 蓝 */
+    --e:#7c4dff; --e-soft:#f0ebff;      /* 企业版 紫 */
+    --m:#00a58a; --m-soft:#e2f6f1;      /* 小程序/移动端 绿 */
+    --g:#00a876; --o:#e0902d; --r:#e0524d;
+    --soft-g:#e6f7f0; --soft-o:#fff5e6; --soft-r:#fdeceb;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.72;font-size:15px}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px 90px}
+  /* Hero */
+  .hero{background:linear-gradient(120deg,#1b2a55 0%,#2f6be5 48%,#00a58a 118%);color:#fff;padding:54px 46px 46px;border-radius:0 0 30px 30px;position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;right:-90px;top:-90px;width:340px;height:340px;background:radial-gradient(circle,rgba(255,255,255,.13),transparent 70%);border-radius:50%}
+  .hero .kick{font-size:13px;letter-spacing:3px;opacity:.85;font-weight:600}
+  .hero h1{font-size:33px;font-weight:800;margin:12px 0 14px;letter-spacing:.5px}
+  .hero p{font-size:15px;opacity:.93;max-width:800px}
+  .hero .vers{margin-top:24px;display:flex;gap:14px;flex-wrap:wrap}
+  .hero .vtag{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:12px 18px;backdrop-filter:blur(4px)}
+  .hero .vtag b{font-size:16px;font-weight:800;display:block}
+  .hero .vtag span{font-size:11.5px;opacity:.85}
+  /* Section */
+  section{margin-top:44px}
+  .sec-h{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .sec-h .no{width:32px;height:32px;border-radius:9px;background:var(--p);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0}
+  .sec-h h2{font-size:21px;font-weight:800}
+  .intro{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--p);border-radius:12px;padding:15px 20px;color:var(--ink2);font-size:13.5px;margin-bottom:20px}
+  .intro b{color:var(--ink)}
+  /* Positioning cards */
+  .pcards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  @media(max-width:900px){.pcards{grid-template-columns:1fr}}
+  .pcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;border-top:4px solid var(--p);position:relative}
+  .pcard.e{border-top-color:var(--e)} .pcard.m{border-top-color:var(--m)}
+  .pcard .badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 11px;border-radius:20px;background:var(--p-soft);color:var(--p);margin-bottom:10px}
+  .pcard.e .badge{background:var(--e-soft);color:var(--e)} .pcard.m .badge{background:var(--m-soft);color:var(--m)}
+  .pcard h3{font-size:18px;font-weight:800;margin-bottom:4px}
+  .pcard .who{font-size:12.5px;color:var(--ink3);margin-bottom:12px}
+  .pcard p{font-size:13px;color:var(--ink2);margin-bottom:12px}
+  .pcard .feats{list-style:none}
+  .pcard .feats li{font-size:12.5px;color:var(--ink2);padding-left:18px;position:relative;margin-bottom:6px}
+  .pcard .feats li::before{content:"✓";position:absolute;left:0;color:var(--g);font-weight:800}
+  /* Big compare table */
+  .tblwrap{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;min-width:760px}
+  thead th{font-size:13px;font-weight:800;padding:14px 16px;text-align:left;border-bottom:2px solid var(--line);position:sticky;top:0}
+  thead th.dim{background:#f0f3f8;color:var(--ink2);width:180px}
+  thead th.cp{background:var(--p-soft);color:var(--p)}
+  thead th.ce{background:var(--e-soft);color:var(--e)}
+  thead th.cm{background:var(--m-soft);color:var(--m)}
+  tbody th{font-size:13px;font-weight:700;color:var(--ink);text-align:left;padding:13px 16px;background:#fafbfd;border-bottom:1px solid var(--line2);vertical-align:top}
+  tbody td{font-size:12.8px;color:var(--ink2);padding:13px 16px;border-bottom:1px solid var(--line2);vertical-align:top;border-left:1px solid var(--line2)}
+  tbody tr:hover td,tbody tr:hover th{background:#f7f9fc}
+  .grp-row td{background:linear-gradient(90deg,#eef3fb,#f7f9fc);font-weight:800;color:var(--ink);font-size:13px;padding:11px 16px;border-left:none}
+  .yes{color:var(--g);font-weight:700} .no{color:var(--ink3)} .part{color:var(--o);font-weight:700}
+  .tag{display:inline-block;font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:5px;margin-right:4px}
+  .t-p{background:var(--p-soft);color:var(--p)} .t-e{background:var(--e-soft);color:var(--e)} .t-m{background:var(--m-soft);color:var(--m)}
+  /* Price cards */
+  .price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  @media(max-width:900px){.price-grid{grid-template-columns:1fr 1fr}}
+  .pr{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 16px;text-align:center}
+  .pr.hot{border:2px solid var(--p);box-shadow:0 8px 24px rgba(47,107,229,.12)}
+  .pr .nm{font-size:14px;font-weight:800}
+  .pr .amt{font-size:24px;font-weight:800;color:var(--p);margin:6px 0 2px}
+  .pr .amt small{font-size:12px;color:var(--ink3);font-weight:500}
+  .pr .sub{font-size:11px;color:var(--ink3);margin-bottom:10px}
+  .pr ul{list-style:none;text-align:left;font-size:11.5px;color:var(--ink2)}
+  .pr ul li{padding:4px 0 4px 15px;position:relative;border-top:1px dashed var(--line)}
+  .pr ul li::before{content:"·";position:absolute;left:3px;color:var(--p);font-weight:800}
+  .pr .rec{font-size:10.5px;font-weight:700;color:var(--p);background:var(--p-soft);border-radius:20px;padding:2px 10px;display:inline-block;margin-bottom:8px}
+  /* Enterprise 2-col */
+  .ent2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:900px){.ent2{grid-template-columns:1fr}}
+  .entc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;border-top:3px solid var(--e)}
+  .entc h4{font-size:16px;font-weight:800;margin-bottom:3px}
+  .entc .amt{font-size:20px;font-weight:800;color:var(--e);margin:6px 0}
+  .entc .amt small{font-size:12px;color:var(--ink3);font-weight:500}
+  .entc .row{display:flex;justify-content:space-between;font-size:12.5px;padding:6px 0;border-bottom:1px dashed var(--line);color:var(--ink2)}
+  .entc .row b{color:var(--ink);font-weight:700}
+  /* Security layers */
+  .sec3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+  @media(max-width:900px){.sec3{grid-template-columns:1fr}}
+  .seccard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .seccard .ic{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:10px;background:var(--e-soft)}
+  .seccard h4{font-size:15px;font-weight:800;margin-bottom:6px}
+  .seccard p{font-size:12.5px;color:var(--ink2)}
+  /* Callout */
+  .callout{background:linear-gradient(120deg,var(--p-soft),var(--m-soft));border:1px solid #d6e6f5;border-radius:14px;padding:20px 24px;margin-top:16px}
+  .callout h4{font-size:15px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .callout p{font-size:13.5px;color:var(--ink2)}
+  /* Decision */
+  .dcards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  @media(max-width:900px){.dcards{grid-template-columns:1fr}}
+  .dcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .dcard h4{font-size:15px;font-weight:800;margin-bottom:8px}
+  .dcard .lab{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:10px;display:inline-block}
+  .dcard ul{list-style:none;font-size:12.5px;color:var(--ink2)}
+  .dcard ul li{padding-left:16px;position:relative;margin-bottom:6px}
+  .dcard ul li::before{content:"▸";position:absolute;left:0;color:var(--p)}
+  .foot{text-align:center;margin-top:40px;color:var(--ink3);font-size:12px}
+  @media print{body{background:#fff}.hero{border-radius:0}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="kick">WORKBUDDY · EDITION COMPARISON</div>
+  <h1>WorkBuddy 个人版 · 企业版 · 小程序版<br>能力全面对比</h1>
+  <p>WorkBuddy 是腾讯出品的全场景 AI 办公工作台。本文档从产品定位、账号体系、端形态、核心能力、套餐计费、团队管理、数据安全、生态扩展到选型建议，逐项拆解个人版、企业版与小程序（移动端）的差异，帮助你快速选对适合自己的形态。</p>
+  <div class="vers">
+    <div class="vtag"><b>个人版</b><span>个人极客 · 单点提效</span></div>
+    <div class="vtag"><b>企业版</b><span>团队组织 · AI 中台</span></div>
+    <div class="vtag"><b>小程序版</b><span>移动远程 · 随时随地</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- 概念澄清 -->
+  <section>
+    <div class="intro">
+      <b>先理清三者关系：</b>「个人版」与「企业版」是 WorkBuddy 两大<b>账号与授权体系</b>（决定你拥有哪些能力、如何计费、如何管理）；「小程序版」严格说不是独立套餐，而是 WorkBuddy 的<b>移动端形态</b>（微信小程序 + WorkBuddy App），它与桌面客户端<b>共用同一账号</b>——无论你是个人版还是企业版用户，都能通过小程序在手机上远程操控或云上执行任务。因此本对比可理解为：<b>两种账号版本（个人 / 企业）× 多种使用端（桌面 / 网页 / 移动小程序）</b>。
+    </div>
+  </section>
+
+  <!-- 1. 产品定位 -->
+  <section>
+    <div class="sec-h"><div class="no">1</div><h2>产品定位与目标人群</h2></div>
+    <div class="pcards">
+      <div class="pcard">
+        <div class="badge">个人版</div>
+        <h3>个人提效工作台</h3>
+        <div class="who">适合：个人用户、自由职业者、1–5 人小团队、个人极客</div>
+        <p>面向个体的 AI 办公搭子，主打单点任务自动化与个人效率提升，登录即用、开箱即得。</p>
+        <ul class="feats">
+          <li>AI 对话 / 文件编辑 / 内容生成</li>
+          <li>100+ 专家随时召唤</li>
+          <li>Skill 技能市场自由安装</li>
+          <li>腾讯文档 / 乐享等连接器</li>
+          <li>设计创意（Ardot）、自定义专家</li>
+        </ul>
+      </div>
+      <div class="pcard e">
+        <div class="badge">企业版</div>
+        <h3>团队 AI 中台</h3>
+        <div class="who">适合：5 人以上团队、跨部门协作、对安全合规有要求的组织</div>
+        <p>在个人版全部能力之上，叠加企业级管控、数字员工、企业知识库与安全审计，从"个人提效"升级为"组织提效"。</p>
+        <ul class="feats">
+          <li>包含个人版全部能力</li>
+          <li>企业管理后台（成员 / 权限 / 审计 / 用量）</li>
+          <li>数字员工 7×24h 在线</li>
+          <li>企业知识库 · 组织记忆沉淀</li>
+          <li>三层安全防护 + CodeBuddy 编程能力</li>
+        </ul>
+      </div>
+      <div class="pcard m">
+        <div class="badge">小程序版</div>
+        <h3>移动远程入口</h3>
+        <div class="who">适合：需要离开工位、随时随地发起任务的所有用户</div>
+        <p>微信小程序 + App 移动端，与桌面端共用账号、资料与记忆，支持"云上直接执行"和"远程操控本机电脑"两种模式。</p>
+        <ul class="feats">
+          <li>云上模式：无需电脑，云端直接执行</li>
+          <li>本机模式：手机远程操控桌面客户端</li>
+          <li>与桌面共用账号 / 资料 / 记忆</li>
+          <li>移动端发起、桌面端继续完善</li>
+          <li>按量消耗 Credits，规则与桌面一致</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 全维度对比总表 -->
+  <section>
+    <div class="sec-h"><div class="no">2</div><h2>全维度能力对比总表</h2></div>
+    <div class="intro">下表覆盖账号、端形态、核心能力、生态、协作、安全、计费七大维度。<span class="yes">●</span> 支持 &nbsp; <span class="part">◐</span> 部分/受控支持 &nbsp; <span class="no">○</span> 不支持</div>
+    <div class="tblwrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="dim">对比维度</th>
+            <th class="cp">个人版</th>
+            <th class="ce">企业版</th>
+            <th class="cm">小程序版（移动端）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="grp-row"><td colspan="4">一、账号与登录</td></tr>
+          <tr><th>账号体系</th><td>腾讯系账号（微信 / QQ / 企业微信）直连，不强制绑定组织</td><td>须经企业微信管理后台完成组织认证，管理员统一分配角色与权限</td><td>与桌面端<b>共用同一账号</b>，移动端扫码登录即可</td></tr>
+          <tr><th>身份认证</th><td>个人扫码 / 账密登录，首次自动注册设备指纹</td><td><span class="yes">●</span> SSO 单点登录，可对接企业微信、飞书等身份源</td><td>沿用所属版本（个人 / 企业）的身份体系</td></tr>
+          <tr><th>组织架构</th><td><span class="no">○</span> 无</td><td><span class="yes">●</span> 同步组织架构树、部门标签、岗位职级，用于任务分发与数据隔离</td><td>随所属账号继承</td></tr>
+
+          <tr class="grp-row"><td colspan="4">二、使用端形态</td></tr>
+          <tr><th>桌面客户端</th><td><span class="yes">●</span> Windows / Mac 客户端</td><td><span class="yes">●</span> Windows / Mac 客户端</td><td>—（小程序为移动端入口）</td></tr>
+          <tr><th>移动端</th><td><span class="part">◐</span> 可用小程序 / App 远程操控</td><td><span class="part">◐</span> 可用小程序 / App 远程操控</td><td><span class="yes">●</span> 微信小程序 + WorkBuddy App</td></tr>
+          <tr><th>云上执行</th><td>—</td><td>—</td><td><span class="yes">●</span> 云上模式，无需电脑直接在云端执行（推荐新手）</td></tr>
+          <tr><th>本机远程</th><td>—</td><td>—</td><td><span class="yes">●</span> 本机模式，手机远程操控电脑上的桌面客户端</td></tr>
+          <tr><th>跨端协作</th><td colspan="3" style="border-left:none">移动端发起任务 → 桌面端生成初稿 → 桌面端继续编辑完善；任务、资料、记忆全端延续</td></tr>
+
+          <tr class="grp-row"><td colspan="4">三、核心 AI 能力</td></tr>
+          <tr><th>自然语言任务</th><td><span class="yes">●</span></td><td><span class="yes">●</span></td><td><span class="yes">●</span> 移动端一句话下达</td></tr>
+          <tr><th>自主规划执行</th><td><span class="yes">●</span> Craft / Plan / Ask / Auto 四模式</td><td><span class="yes">●</span> 同上 + 项目模式</td><td><span class="yes">●</span> 复用桌面能力</td></tr>
+          <tr><th>多模态任务</th><td><span class="yes">●</span> 文档 / 表格 / PPT / 数据分析 / 音频等</td><td><span class="yes">●</span></td><td><span class="yes">●</span></td></tr>
+          <tr><th>本地文件操作</th><td><span class="yes">●</span> 授权目录读写、本地沙箱执行</td><td><span class="yes">●</span> 叠加分级管控 + 操作日志上传审计</td><td><span class="part">◐</span> 云上模式无本地文件；本机模式经桌面端读取</td></tr>
+          <tr><th>持久化记忆</th><td><span class="yes">●</span> User / Workspace 双层，本地保存可编辑</td><td><span class="yes">●</span> + 企业知识库 / 组织记忆</td><td><span class="yes">●</span> 全端延续访问</td></tr>
+          <tr><th>设计创意 Ardot</th><td><span class="yes">●</span> 网站 / App / PPT 等 9 种可编辑分层源文件</td><td><span class="yes">●</span></td><td><span class="part">◐</span> 视移动端能力</td></tr>
+          <tr><th>AI 编程 CodeBuddy</th><td><span class="part">◐</span> 代码开发场景</td><td><span class="yes">●</span> 含企业级 AI 编程能力</td><td><span class="no">○</span></td></tr>
+
+          <tr class="grp-row"><td colspan="4">四、生态与扩展</td></tr>
+          <tr><th>Skill 技能市场</th><td><span class="yes">●</span> 万级技能自由安装</td><td><span class="yes">●</span> + 企业自定义 Skill</td><td><span class="part">◐</span> 沿用账号已装技能</td></tr>
+          <tr><th>专家 / 专家团</th><td><span class="yes">●</span> 100+ 专家 + 自定义专家</td><td><span class="yes">●</span> + 企业自定义专家 / 专家团 / 数字员工</td><td><span class="part">◐</span> 沿用账号</td></tr>
+          <tr><th>连接器 Connector</th><td><span class="yes">●</span> 腾讯文档 / 乐享 / 网盘等（基于腾讯 One ID）</td><td><span class="yes">●</span> + TAPD / 腾讯会议 / 企业 OA·CRM 深度对接</td><td><span class="part">◐</span> 沿用账号</td></tr>
+          <tr><th>自定义模型</th><td><span class="no">○</span></td><td><span class="yes">●</span> 支持接入企业自定义模型</td><td><span class="no">○</span></td></tr>
+          <tr><th>数字员工</th><td><span class="no">○</span> 企业版独占</td><td><span class="yes">●</span> 7×24h 在线，具备岗位经验与技能</td><td><span class="no">○</span></td></tr>
+
+          <tr class="grp-row"><td colspan="4">五、团队协作与管理</td></tr>
+          <tr><th>管理后台</th><td><span class="no">○</span></td><td><span class="yes">●</span> WorkBuddy Admin 统一管理企业 AI 资产</td><td><span class="no">○</span></td></tr>
+          <tr><th>成员 / 权限管理</th><td><span class="no">○</span></td><td><span class="yes">●</span> 按组织架构分配成员与精细化权限、智能体生命周期管理</td><td><span class="no">○</span></td></tr>
+          <tr><th>用量看板</th><td><span class="part">◐</span> 个人用量</td><td><span class="yes">●</span> 企业研效看板，实时查看团队 / 成员 / 项目消耗</td><td><span class="part">◐</span> 个人用量</td></tr>
+          <tr><th>企业知识库</th><td><span class="no">○</span></td><td><span class="yes">●</span> 上传企业文档，AI 基于内部知识回答、经验沉淀复用</td><td><span class="no">○</span></td></tr>
+          <tr><th>项目模式</th><td><span class="no">○</span></td><td><span class="yes">●</span></td><td><span class="no">○</span></td></tr>
+
+          <tr class="grp-row"><td colspan="4">六、数据安全与合规</td></tr>
+          <tr><th>本地沙箱</th><td><span class="yes">●</span> 本地执行、原始数据不上传、自动拦截敏感目录</td><td><span class="yes">●</span> + 沙箱隔离 + 高危审计</td><td><span class="part">◐</span> 云上模式为云端执行</td></tr>
+          <tr><th>数据分级管控</th><td><span class="no">○</span> 一次性授权，用户自控</td><td><span class="yes">●</span> 按部门 / 项目 / 敏感等级三重维度设定可见性</td><td><span class="no">○</span></td></tr>
+          <tr><th>操作审计</th><td><span class="no">○</span></td><td><span class="yes">●</span> 完整操作日志、文件水印（操作人 / 时间 / 设备）、合规审计</td><td><span class="no">○</span></td></tr>
+          <tr><th>网络安全</th><td>标准</td><td><span class="yes">●</span> 出站管控 + 站点拦截；专享版含专属网络访问</td><td>标准</td></tr>
+          <tr><th>数据隔离部署</th><td><span class="no">○</span></td><td><span class="yes">●</span> 专有云 VPC 部署、数据租户隔离（专享版）</td><td><span class="no">○</span></td></tr>
+
+          <tr class="grp-row"><td colspan="4">七、计费与套餐</td></tr>
+          <tr><th>计费模式</th><td>按套餐订阅，个人付费</td><td>按坐席计费，团队共享积分池、集中式采购</td><td>按量消耗 Credits，规则与所属版本一致</td></tr>
+          <tr><th>套餐档位</th><td>体验 / 标准 / 高级 / 旗舰 四档</td><td>SaaS 旗舰版 / 专有云专享版 两档</td><td>不单独计费，随账号</td></tr>
+          <tr><th>自动化额度</th><td>体验 3 / 标准 15 / 高级 30 / 旗舰 99 个</td><td><span class="yes">●</span> 无限制</td><td>随账号</td></tr>
+          <tr><th>专属服务</th><td><span class="no">○</span></td><td><span class="yes">●</span> 专属客户成功经理；专享版含专属插件 / 服务实例</td><td><span class="no">○</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 3. 个人版套餐 -->
+  <section>
+    <div class="sec-h"><div class="no">3</div><h2>个人版套餐详情（四档）</h2></div>
+    <div class="price-grid">
+      <div class="pr">
+        <div class="rec">入门体验</div>
+        <div class="nm">体验版</div>
+        <div class="amt">免费</div>
+        <div class="sub">零成本试用</div>
+        <ul>
+          <li>每月基础积分 500</li>
+          <li>模型：部分可用（Auto 调度）</li>
+          <li>自动任务 3 个（限时可至 99）</li>
+        </ul>
+      </div>
+      <div class="pr hot">
+        <div class="rec">性价比之选</div>
+        <div class="nm">标准版</div>
+        <div class="amt">99<small> 元/月</small></div>
+        <div class="sub">连续包月 70 · 包年 672</div>
+        <ul>
+          <li>基础积分 2,000 + 加赠 2,000</li>
+          <li>限时实得 4,000/月</li>
+          <li>模型：全部可用</li>
+          <li>自动任务 15 个（限时可至 99）</li>
+        </ul>
+      </div>
+      <div class="pr">
+        <div class="rec">高频重度</div>
+        <div class="nm">高级版</div>
+        <div class="amt">199<small> 元/月</small></div>
+        <div class="sub">连续包月 140 · 包年 1,344</div>
+        <ul>
+          <li>基础积分 4,000 + 加赠 5,000</li>
+          <li>限时实得 9,000/月</li>
+          <li>模型：全部可用</li>
+          <li>自动任务 30 个</li>
+        </ul>
+      </div>
+      <div class="pr">
+        <div class="rec">专业顶配</div>
+        <div class="nm">旗舰版</div>
+        <div class="amt">999<small> 元/月</small></div>
+        <div class="sub">连续包月 700 · 包年 6,720</div>
+        <ul>
+          <li>基础积分 20,000 + 加赠 30,000</li>
+          <li>限时实得 50,000/月</li>
+          <li>模型：全部可用</li>
+          <li>自动任务 99 个</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">
+      <h4>💡 订阅折扣</h4>
+      <p>连续包月享 <b>7 折</b>；连续包年在年付 7 折基础上再享 8 折（即 <b>5.6 折</b>）。加赠积分自到账日起 1 个月内有效。若只是轻度尝鲜，体验版足够；日常高频办公推荐<b>标准版</b>起步。</p>
+    </div>
+  </section>
+
+  <!-- 4. 企业版套餐 -->
+  <section>
+    <div class="sec-h"><div class="no">4</div><h2>企业版套餐详情（两档）</h2></div>
+    <div class="ent2">
+      <div class="entc">
+        <h4>SaaS 企业版（旗舰版）</h4>
+        <div class="amt">198<small> 元/人/月</small></div>
+        <div class="row"><span>按年购买</span><b>2,376 元/人/年</b></div>
+        <div class="row"><span>起购要求</span><b>1 个坐席起购</b></div>
+        <div class="row"><span>Credits 额度</span><b>2,000/人/月 · 团队共享</b></div>
+        <div class="row"><span>部署方式</span><b>SaaS 云端，开箱即用</b></div>
+        <div class="row" style="border-bottom:none"><span>适用场景</span><b>中小团队 / 初创 / 项目组</b></div>
+      </div>
+      <div class="entc">
+        <h4>专有云企业版（专享版）</h4>
+        <div class="amt">316<small> 元/人/月</small></div>
+        <div class="row"><span>按年购买</span><b>3,792 元/人/年</b></div>
+        <div class="row"><span>起购要求</span><b>100 个坐席起购</b></div>
+        <div class="row"><span>Credits 额度</span><b>2,000/人/月 · 团队共享</b></div>
+        <div class="row"><span>部署方式</span><b>专有云 VPC，数据隔离</b></div>
+        <div class="row" style="border-bottom:none"><span>适用场景</span><b>大中型 / 数据敏感型行业</b></div>
+      </div>
+    </div>
+    <div class="callout">
+      <h4>💡 企业版差异要点</h4>
+      <p>两档均<b>按坐席计费、团队共享积分池</b>，便于统一采购与资源统筹。<b>SaaS 版</b>适合快速部署、灵活调整规模；<b>专享版</b>在此之上额外提供<b>专属网络访问、专属企业插件、专属服务实例与数据租户隔离</b>，为数据敏感型大型企业提供更高层级的安全与服务保障。企业加量包可单独购买，灵活补充团队积分。</p>
+    </div>
+  </section>
+
+  <!-- 5. 企业版核心心智（官方主线） -->
+  <section>
+    <div class="sec-h"><div class="no">5</div><h2>企业版核心心智：从"个人提效"到"组织提效"</h2></div>
+    <div class="intro">
+      企业版的本质<b>不是"多一个 AI 助手"</b>，而是把 WorkBuddy 作为<b>企业 AI 办公的统一入口</b>——员工每天从这里发起、推进、完成工作，并在每一次工作中沉淀企业 AI 资产，最终跑起一条持续增强的"企业 AI 工作飞轮"。这是个人版与企业版最本质的差异。
+    </div>
+    <div class="pcards" style="grid-template-columns:1fr 1fr">
+      <div class="pcard e">
+        <div class="badge">超级个体</div>
+        <h3>员工被组织能力放大</h3>
+        <p>员工通过 WorkBuddy 调用企业知识、Skill、工具、专家经验与数字员工，不再只靠自己干活，而是"指挥组织能力"完成工作——普通员工也能交付更专业的成果。</p>
+      </div>
+      <div class="pcard e">
+        <div class="badge">超级团队</div>
+        <h3>从"沟通协作"到"协同执行"</h3>
+        <p>团队通过 Teams 把成员、任务、资料、数字员工、AI 资产与自动化组织到同一空间，人负责目标与决策、数字员工负责拆解执行验证，团队对结果负责。</p>
+      </div>
+    </div>
+    <div class="grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:14px">
+      <div class="seccard" style="border-top:3px solid var(--e)">
+        <div class="ic" style="background:var(--e-soft)">🧱</div>
+        <h4>企业 AI 资产</h4>
+        <p style="font-size:12.5px;color:var(--ink2)">每次工作沉淀企业知识、组织记忆、Skill、专家经验、连接器、案例与评测样例，成为数字员工的能力底座——资产越丰富，数字员工越懂企业。</p>
+      </div>
+      <div class="seccard" style="border-top:3px solid var(--e)">
+        <div class="ic" style="background:var(--e-soft)">🤖</div>
+        <h4>企业数字员工</h4>
+        <p style="font-size:12.5px;color:var(--ink2)">7×24h 在线、具备岗位经验与技能的 AI 执行单元，装载企业知识/Skill/连接器，能自主调用工具、读写系统、被员工指挥或加入团队协同。</p>
+      </div>
+      <div class="seccard" style="border-top:3px solid var(--e)">
+        <div class="ic" style="background:var(--e-soft)">🧩</div>
+        <h4>Agent Suite 套件</h4>
+        <p style="font-size:12.5px;color:var(--ink2)">深度融合腾讯文档（内容协作）+ 腾讯网盘（文件管理）+ 腾讯乐享（知识治理）三大底座，让内容可编辑沉淀、文件可回溯、知识可信可调用。</p>
+      </div>
+      <div class="seccard" style="border-top:3px solid var(--e)">
+        <div class="ic" style="background:var(--e-soft)">🛠️</div>
+        <h4>智能体构建</h4>
+        <p style="font-size:12.5px;color:var(--ink2)">在 WorkBuddy 中装配角色/Prompt/Skill/专家/连接器/知识库/评测集，经 Test Run → 评测 → 版本发布，形成可用、可复制、可治理的企业数字员工。</p>
+      </div>
+      <div class="seccard" style="border-top:3px solid var(--e)">
+        <div class="ic" style="background:var(--e-soft)">🎛️</div>
+        <h4>Admin 统一治理</h4>
+        <p style="font-size:12.5px;color:var(--ink2)">管理员统一治理数字员工、工具类智能体、AI 资产、连接器、成员权限与用量审计——让企业智能体可管、可控、可追踪、可运营。</p>
+      </div>
+      <div class="seccard" style="border-top:3px solid var(--e)">
+        <div class="ic" style="background:var(--e-soft)">♻️</div>
+        <h4>企业 AI 工作飞轮</h4>
+        <p style="font-size:12.5px;color:var(--ink2)">员工使用 → 团队协同 → 资产沉淀 → 数字员工增强 → 组织生产力持续释放，形成不断自我强化的闭环，而非一次性效率提升。</p>
+      </div>
+    </div>
+    <div class="callout">
+      <h4>💡 官方主线一句话</h4>
+      <p>WorkBuddy 企业版 = <b>企业 AI 办公统一入口 + 超级个体 + 超级团队 + 企业 AI 资产 + 企业数字员工 + 智能体构建与治理</b>。个人版让你成为超级个体，企业版让整个组织跑起 AI 工作飞轮。</p>
+    </div>
+  </section>
+
+  <!-- 6. 企业级安全 -->
+  <section>
+    <div class="sec-h"><div class="no">6</div><h2>企业版三层安全防护（个人版不含）</h2></div>
+    <div class="sec3">
+      <div class="seccard">
+        <div class="ic">🛡️</div>
+        <h4>行为安全</h4>
+        <p>沙箱隔离 + 高危操作审计。USB 设备操作、注册表修改、批量删除等高危动作须经指定审批人二次确认。</p>
+      </div>
+      <div class="seccard">
+        <div class="ic">🔐</div>
+        <h4>权限安全</h4>
+        <p>最小权限 + 路径隔离。按《数据分类分级清单》限制可访问路径，文件读写自动附加不可清除的数字水印。</p>
+      </div>
+      <div class="seccard">
+        <div class="ic">🌐</div>
+        <h4>网络安全</h4>
+        <p>出站管控 + 站点拦截。Claw 远程指令须通过企业关键词库实时比对，专享版另配专属网络访问。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. 小程序版专述 -->
+  <section>
+    <div class="sec-h"><div class="no">7</div><h2>小程序版（移动端）两种模式</h2></div>
+    <div class="ent2">
+      <div class="entc" style="border-top-color:var(--m)">
+        <h4 style="color:var(--m)">☁️ 云上模式（推荐新手）</h4>
+        <p style="font-size:12.5px;color:var(--ink2);margin:8px 0">无需电脑，直接在云端执行任务。打开微信搜索"腾讯 WorkBuddy"小程序即可发起，适合临时、轻量、离开工位的场景。</p>
+        <div class="row"><span>是否需要电脑</span><b>否</b></div>
+        <div class="row"><span>本地文件</span><b>不涉及</b></div>
+        <div class="row" style="border-bottom:none"><span>典型场景</span><b>随手发起、查阅、生成</b></div>
+      </div>
+      <div class="entc" style="border-top-color:var(--m)">
+        <h4 style="color:var(--m)">🖥️ 本机模式（远程操控）</h4>
+        <p style="font-size:12.5px;color:var(--ink2);margin:8px 0">远程操控电脑上的桌面客户端，借助本机的本地文件与完整能力完成任务。需一次性绑定：桌面端设置 → 助理设置 → 微信客服号集成 → 扫码。</p>
+        <div class="row"><span>是否需要电脑</span><b>是（本机在线）</b></div>
+        <div class="row"><span>本地文件</span><b>经桌面端可读</b></div>
+        <div class="row" style="border-bottom:none"><span>典型场景</span><b>会议中发起、通勤远程办公</b></div>
+      </div>
+    </div>
+    <div class="callout">
+      <h4>💡 小程序版关键认知</h4>
+      <p>小程序 / App 与桌面客户端<b>共用同一账号体系</b>，任务、资料、记忆全端延续；移动端发起的任务同样<b>按量消耗 Credits</b>，规则与桌面端一致。它是"入口"而非"独立套餐"——你的能力上限取决于所登录的是个人版还是企业版账号。</p>
+    </div>
+  </section>
+
+  <!-- 8. 选型建议 -->
+  <section>
+    <div class="sec-h"><div class="no">8</div><h2>选型建议：记住"5 人定律"</h2></div>
+    <div class="dcards">
+      <div class="dcard">
+        <span class="lab t-p">选个人版</span>
+        <h4>1–5 人 / 个人极客</h4>
+        <ul>
+          <li>核心诉求是个人提效、单点任务自动化</li>
+          <li>还没有形成标准化 SOP 流程</li>
+          <li>本地自定义专家已能满足</li>
+          <li>先把单点效率拉满，随时可升级</li>
+        </ul>
+      </div>
+      <div class="dcard">
+        <span class="lab t-e">选企业版</span>
+        <h4>5 人以上 / 跨部门</h4>
+        <ul>
+          <li>需要组织协同、知识沉淀、成本管控</li>
+          <li>老板开始关注"AI 投入产出比"</li>
+          <li>需数字员工、项目模式、管理后台</li>
+          <li>数据敏感行业选专有云专享版</li>
+        </ul>
+      </div>
+      <div class="dcard">
+        <span class="lab t-m">配小程序版</span>
+        <h4>所有需要移动办公的人</h4>
+        <ul>
+          <li>无论个人版还是企业版都可叠加使用</li>
+          <li>会议中、通勤路上随手发起任务</li>
+          <li>云上模式零门槛，新手友好</li>
+          <li>本机模式远程操控自己的电脑</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">
+      <h4>💡 一句话总结</h4>
+      <p>团队不到 5 人、追求个人极致提效 → <b>个人版</b>（标准版起步）；团队超过 5 人、要组织级协同与安全管控 → <b>企业版</b>（SaaS 旗舰版起步，数据敏感选专享版）；无论哪种账号，都建议<b>绑定小程序</b>作为移动端补充，实现随时随地办公。</p>
+    </div>
+  </section>
+
+  <div class="foot">WorkBuddy 个人版 · 企业版 · 小程序版 能力对比 · 供选型与合作参考</div>
+
+</div>
+</body>
+</html>
