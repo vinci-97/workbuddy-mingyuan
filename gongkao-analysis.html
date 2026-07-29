@@ -3,289 +3,368 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WorkBuddy × 考公行业 · 用户需求分析报告</title>
+<title>考公赛道 AI 用户需求洞察报告</title>
 <style>
-:root{
-  --brand:#1a6dff; --brand2:#00b899; --ink:#1a2233; --sub:#5b6b80; --line:#e7ecf3;
-  --bg:#f5f7fa; --card:#ffffff; --soft:#f0f4fa; --warn:#e0902d; --red:#e0524d; --green:#12a37a; --purple:#7a5cf0;
-}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;font-size:14px;line-height:1.7}
-.wrap{max-width:960px;margin:0 auto;padding:0 20px 80px}
-/* 头部 */
-.hero{background:linear-gradient(125deg,#1a6dff 0%,#3a86ff 45%,#00b899 120%);color:#fff;padding:44px 40px 38px;border-radius:0 0 26px 26px;box-shadow:0 12px 40px rgba(26,109,255,.18)}
-.hero .kicker{font-size:12.5px;letter-spacing:2px;opacity:.9;font-weight:600}
-.hero h1{margin:12px 0 10px;font-size:29px;font-weight:800;letter-spacing:.5px}
-.hero p{margin:0;font-size:14px;opacity:.94;max-width:720px;line-height:1.8}
-.hero .meta{margin-top:18px;display:flex;gap:22px;flex-wrap:wrap;font-size:12.5px;opacity:.92}
-.hero .meta b{font-weight:700}
-/* 概览数字 */
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:-26px auto 0;max-width:920px;position:relative;z-index:2}
-.kpi{background:var(--card);border-radius:14px;padding:18px 16px;box-shadow:0 6px 22px rgba(20,30,50,.07);border:1px solid var(--line)}
-.kpi .n{font-size:26px;font-weight:800;color:var(--brand)}
-.kpi .n.g{color:var(--brand2)} .kpi .n.p{color:var(--purple)} .kpi .n.o{color:var(--warn)}
-.kpi .l{font-size:12px;color:var(--sub);margin-top:4px}
-/* 区块 */
-section{margin-top:38px}
-h2{font-size:20px;font-weight:800;margin:0 0 6px;display:flex;align-items:center;gap:10px}
-h2 .idx{width:30px;height:30px;border-radius:9px;background:var(--brand);color:#fff;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-h2 .idx.g{background:var(--brand2)} h2 .idx.p{background:var(--purple)} h2 .idx.o{background:var(--warn)} h2 .idx.r{background:var(--red)}
-.lead{color:var(--sub);margin:0 0 16px;font-size:13.5px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:0 3px 14px rgba(20,30,50,.04)}
-.card + .card{margin-top:14px}
-h3{font-size:15px;font-weight:700;margin:2px 0 10px;color:var(--ink)}
-/* 方法说明 */
-.note{background:#fff8ec;border:1px solid #f4e2c0;border-left:4px solid var(--warn);border-radius:10px;padding:14px 16px;font-size:13px;color:#7a5a20;line-height:1.75}
-.note b{color:#5c4210}
-/* 表格 */
-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
-th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
-th{background:var(--soft);color:#34435a;font-weight:700;font-size:12.5px}
-tr:last-child td{border-bottom:none}
-.tag{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
-.t-red{background:#fdeceb;color:var(--red)} .t-org{background:#fff5e6;color:var(--warn)}
-.t-grn{background:#e6f7f0;color:var(--green)} .t-blu{background:#eaf1ff;color:var(--brand)} .t-pur{background:#f0ecfe;color:var(--purple)}
-/* query 卡 */
-.q{background:var(--soft);border-radius:9px;padding:11px 13px;font-size:12.5px;color:#34435a;margin:8px 0;border-left:3px solid var(--brand);font-family:"SF Mono",Consolas,monospace;line-height:1.6}
-.q .src{display:block;font-family:-apple-system,sans-serif;color:#8a94a6;font-size:11px;margin-top:5px}
-/* 画像卡 */
-.persona{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.pcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 3px 14px rgba(20,30,50,.04)}
-.pcard .top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-.pcard .av{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.pcard .nm{font-weight:800;font-size:15px} .pcard .rt{font-size:12px;color:var(--sub)}
-.pcard ul{margin:8px 0 0;padding-left:18px;font-size:12.8px;color:#3a4658} .pcard li{margin:3px 0}
-/* 条形 */
-.bars{margin-top:10px}
-.brow{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:12.5px}
-.brow .bl{width:130px;flex-shrink:0;color:#34435a}
-.brow .bt{flex:1;height:16px;background:#eef2f7;border-radius:8px;overflow:hidden}
-.brow .bt i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,var(--brand),#5a9bff)}
-.brow .bv{width:52px;text-align:right;font-weight:700;color:var(--ink);flex-shrink:0}
-/* 场景流程 */
-.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
-.flow .st{background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:9px 13px;font-size:12.5px;font-weight:600;color:#34435a}
-.flow .ar{color:var(--brand);font-weight:800}
-/* 需求优先级 */
-.need{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:12px;background:var(--card)}
-.need .h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
-.need .h .t{font-weight:700;font-size:14px}
-.need .d{font-size:12.8px;color:var(--sub);line-height:1.7}
-/* 建议卡 */
-.rec{display:grid;grid-template-columns:1fr;gap:12px}
-.rc{border:1px solid var(--line);border-left:4px solid var(--brand2);border-radius:12px;padding:16px 18px;background:var(--card)}
-.rc .t{font-weight:800;font-size:14.5px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
-.rc .badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;background:#e6f7f0;color:var(--green)}
-.rc ul{margin:8px 0 0;padding-left:18px;font-size:13px;color:#3a4658}.rc li{margin:4px 0}
-.footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);color:#8a94a6;font-size:12px;text-align:center}
-@media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr)}.persona{grid-template-columns:1fr}.hero{padding:32px 22px}}
+  :root{
+    --bg:#f6f8fb; --card:#ffffff; --ink:#1a2233; --ink2:#4a5568; --ink3:#8a94a6;
+    --line:#e7ecf3; --brand:#2f6be5; --brand2:#00a3a3; --accent:#7c5cff;
+    --r:#e0524d; --o:#e0902d; --g:#00a876; --b:#2f6be5;
+    --soft-b:#eaf1ff; --soft-g:#e6f7f0; --soft-o:#fff5e6; --soft-r:#fdeceb; --soft-p:#f0ecff; --soft-t:#e4f7f6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.7;font-size:15px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px 80px}
+  /* Hero */
+  .hero{background:linear-gradient(125deg,#1c2b52 0%,#2f6be5 55%,#00a3a3 120%);color:#fff;padding:56px 44px 48px;border-radius:0 0 28px 28px;position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;right:-80px;top:-80px;width:320px;height:320px;background:radial-gradient(circle,rgba(255,255,255,.14),transparent 70%);border-radius:50%}
+  .hero .kick{font-size:13px;letter-spacing:3px;opacity:.85;font-weight:600}
+  .hero h1{font-size:34px;font-weight:800;margin:12px 0 14px;letter-spacing:.5px}
+  .hero p{font-size:15px;opacity:.92;max-width:720px}
+  .hero .meta{margin-top:22px;display:flex;gap:26px;flex-wrap:wrap;font-size:12.5px;opacity:.85}
+  .hero .meta b{display:block;font-size:18px;font-weight:800;opacity:1;margin-top:2px}
+  /* Section */
+  section{margin-top:40px}
+  .sec-h{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .sec-h .no{width:34px;height:34px;border-radius:10px;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0}
+  .sec-h h2{font-size:22px;font-weight:800;color:var(--ink)}
+  .sec-h .sub{font-size:12.5px;color:var(--ink3);margin-top:1px}
+  .lead{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:12px;padding:16px 20px;color:var(--ink2);font-size:14px;margin-bottom:20px}
+  .lead b{color:var(--ink)}
+  /* Cards grid */
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1fr 1fr 1fr}
+  .g4{grid-template-columns:1fr 1fr 1fr 1fr}
+  @media(max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;transition:box-shadow .2s,transform .2s}
+  .card:hover{box-shadow:0 10px 30px rgba(30,60,120,.08);transform:translateY(-2px)}
+  .card .ic{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px}
+  .card h3{font-size:16px;font-weight:800;margin-bottom:4px}
+  .card .tag{font-size:11.5px;color:var(--ink3);font-weight:600;margin-bottom:10px}
+  .card p{font-size:13px;color:var(--ink2)}
+  .card ul{list-style:none;margin-top:10px}
+  .card ul li{font-size:12.5px;color:var(--ink2);padding-left:16px;position:relative;margin-bottom:5px}
+  .card ul li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--brand2)}
+  /* Bars */
+  .bars{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+  .bar-row{margin-bottom:16px}
+  .bar-row:last-child{margin-bottom:0}
+  .bar-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+  .bar-top .nm{font-size:13.5px;font-weight:700;color:var(--ink)}
+  .bar-top .nm small{font-weight:500;color:var(--ink3);margin-left:8px;font-size:11.5px}
+  .bar-top .lv{font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px}
+  .track{height:12px;border-radius:7px;background:#eef1f5;overflow:hidden}
+  .track i{display:block;height:100%;border-radius:7px}
+  /* Journey */
+  .journey{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 24px;overflow-x:auto}
+  .jflow{display:flex;align-items:stretch;gap:0;min-width:840px}
+  .jstep{flex:1;position:relative;padding:0 8px}
+  .jstep .top{display:flex;flex-direction:column;align-items:center}
+  .jstep .dot{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;font-weight:800;z-index:2}
+  .jstep .ln{position:absolute;top:22px;left:50%;right:-50%;height:3px;background:var(--line);z-index:1}
+  .jstep:last-child .ln{display:none}
+  .jstep h4{font-size:13.5px;font-weight:800;text-align:center;margin:12px 0 6px}
+  .jstep .desc{font-size:11.5px;color:var(--ink2);text-align:center}
+  .jstep .heat{margin-top:10px;text-align:center;font-size:11px;font-weight:700;padding:3px 0;border-radius:6px}
+  /* Priority table */
+  .ptable{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .ptable table{width:100%;border-collapse:collapse}
+  .ptable th{background:#f0f4fa;color:var(--ink2);font-size:12px;font-weight:700;text-align:left;padding:12px 16px;border-bottom:1px solid var(--line)}
+  .ptable td{padding:14px 16px;border-bottom:1px solid var(--line);font-size:13px;color:var(--ink2);vertical-align:top}
+  .ptable tr:last-child td{border-bottom:none}
+  .pri{font-size:11.5px;font-weight:800;padding:3px 10px;border-radius:6px;white-space:nowrap}
+  .p0{background:var(--soft-r);color:var(--r)}
+  .p1{background:var(--soft-o);color:var(--o)}
+  .p2{background:var(--soft-b);color:var(--b)}
+  .ptable td b{color:var(--ink)}
+  /* Reco cards */
+  .reco{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;position:relative;border-top:3px solid var(--brand)}
+  .reco .rk{position:absolute;top:-1px;right:20px;background:var(--brand);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:0 0 8px 8px}
+  .reco .form{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+  .reco h3{font-size:16.5px;font-weight:800;margin-bottom:8px}
+  .reco p{font-size:13px;color:var(--ink2);margin-bottom:10px}
+  .reco .kv{font-size:12.5px;color:var(--ink2);margin-bottom:5px;padding-left:18px;position:relative}
+  .reco .kv::before{content:"▸";position:absolute;left:0;color:var(--brand)}
+  .reco .kv b{color:var(--ink)}
+  /* Insight callout */
+  .callout{background:linear-gradient(120deg,var(--soft-b),var(--soft-t));border:1px solid #d4e4f5;border-radius:14px;padding:22px 24px;margin-top:16px}
+  .callout h4{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .callout p{font-size:13.5px;color:var(--ink2)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .chip{font-size:12px;font-weight:600;padding:6px 13px;border-radius:20px;background:#fff;border:1px solid var(--line);color:var(--ink2)}
+  .chip b{color:var(--brand)}
+  /* footer note */
+  .note{margin-top:44px;padding:18px 22px;background:#eef1f5;border-radius:12px;font-size:12px;color:var(--ink3);line-height:1.8}
+  .foot{text-align:center;margin-top:36px;color:var(--ink3);font-size:12px}
+  @media print{body{background:#fff}.card:hover{box-shadow:none;transform:none}.hero{border-radius:0}}
 </style>
 </head>
 <body>
 <div class="hero">
-  <div style="max-width:920px;margin:0 auto">
-    <div class="kicker">WORKBUDDY × 考公行业 · 生态合作数据洞察</div>
-    <h1>公务员考试用户需求分析报告</h1>
-    <p>基于 WorkBuddy 真实用户意图 Top10 及 Query 样本，聚焦「公务员/事业单位/遴选/选调」考试场景，从用户画像、用户意图、用户场景、用户需求四个维度拆解，为考公行业合作方接入 WorkBuddy 开放生态、上架高需求能力与优化功能提供决策依据。</p>
-    <div class="meta">
-      <span>📄 数据来源：<b>WorkBuddy 用户意图 Top10 及 Query 示例</b></span>
-      <span>📊 样本规模：<b>1,000 条真实 Query</b></span>
-      <span>🗓 数据时间：<b>2026-07-28</b></span>
-      <span>🎯 用途：<b>合作方能力上架 / 功能优化</b></span>
-    </div>
+  <div class="kick">GOVERNMENT EXAM · AI USER INSIGHT</div>
+  <h1>考公赛道 AI 用户需求洞察报告</h1>
+  <p>面向考公培训与服务合作方，基于智能助手真实使用行为提炼的用户画像、意图、场景与需求全景，用于指导高需求能力的上架与产品功能优化。</p>
+  <div class="meta">
+    <div>覆盖阶段<b>报考 → 备考 → 复盘 全链路</b></div>
+    <div>画像类型<b>4 类核心人群</b></div>
+    <div>意图族<b>6 大需求族</b></div>
+    <div>落地建议<b>5 项可上架能力</b></div>
   </div>
-</div>
-
-<div class="kpis">
-  <div class="kpi"><div class="n">36.1%</div><div class="l">「教育与学习辅助」意图占比<br>（361 / 1000，第二大意图）</div></div>
-  <div class="kpi"><div class="n g">~100+</div><div class="l">职业/资格考试备考相关 Query<br>（教育大类核心子域）</div></div>
-  <div class="kpi"><div class="n p">8</div><div class="l">直接命中公务员/事业单位<br>/遴选/选调核心 Query</div></div>
-  <div class="kpi"><div class="n o">6</div><div class="l">覆盖的考公全链路环节<br>（咨询→规划→资料→刷题→面试→陪伴）</div></div>
 </div>
 
 <div class="wrap">
 
-<section>
-  <h2><span class="idx o">0</span>数据说明与分析方法</h2>
-  <p class="lead">先讲清楚这份报告"数据从哪来、怎么筛、有多大代表性"，便于合作方判断结论的可信边界。</p>
-  <div class="card">
-    <h3>数据链路</h3>
-    <p style="margin:0 0 6px;font-size:13.3px;color:#3a4658">原始表含 1,000 条真实用户 Query，每条带四级意图标签（L0 大类 → L1 → L2 → L3 细分场景）、命中模型、置信分与 Query 预览。分析分两层圈定考公人群：</p>
-    <div class="flow">
-      <span class="st">① 强关键词命中<br>公务员/考公/申论/行测/公考/事业单位/遴选/选调/社区工作者…</span>
-      <span class="ar">＋</span>
-      <span class="st">② 相关意图标签归集<br>职业资格考试备考规划·资料整理·题库生成…</span>
-      <span class="ar">→</span>
-      <span class="st">③ 人工剔除误命中<br>（如"测试报告编制""行车测试"等工程语义）</span>
+  <!-- 阅读说明 -->
+  <section>
+    <div class="lead">
+      <b>阅读说明：</b>本报告的画像、意图、场景与需求，均从真实用户在 AI 智能助手中的自然使用行为中归纳提炼而成，所有结论以<b>占比与需求强度分档</b>呈现，聚焦「用户在做什么、需要什么」，为合作方的能力设计与功能优化提供方向依据。具体需求量级建议合作方接入后结合自有数据二次校准。
     </div>
-  </div>
-  <div class="note" style="margin-top:14px">
-    <b>关于样本量的坦诚说明：</b>在本批 1,000 条通用流量样本中，<b>直接、明确命中公务员考试的核心 Query 为 8 条</b>；但其所属父类「职业资格考试备考」是一个高频大场景（教育大类下备考/题库/真题相关合计约 100+ 条）。因此本报告的画像与需求结论 = <b>真实 Query 证据</b> + <b>职业考试大类共性</b> + <b>考公行业公开常识</b> 三者交叉推导，用于指导能力选型方向；具体上架能力的需求量级，建议接入后以专属埋点做二次验证。
-  </div>
-</section>
+  </section>
 
-<section>
-  <h2><span class="idx">1</span>用户画像分析 · Who</h2>
-  <p class="lead">从 8 条核心 Query 的自我描述（地域、身份、备考阶段、诉求语气）+ 职业考试大类特征，归纳出 4 类典型考公用户。</p>
-  <div class="persona">
-    <div class="pcard">
-      <div class="top"><div class="av" style="background:#eaf1ff">🎓</div><div><div class="nm">应届 / 在校备考生</div><div class="rt">大三大四 · 首次考公 · 信息焦虑型</div></div></div>
-      <ul>
-        <li><b>典型证据：</b>"公务员、事业单位报考是不是应该用到本科目录和研究生目录？"、"考公一年有多少次机会，我在南京"</li>
-        <li>特征：对报考政策、岗位匹配、考试机会一知半解，处于<b>入门信息搜集期</b></li>
-        <li>核心焦虑：不知道能报什么岗、时间线怎么排</li>
-      </ul>
+  <!-- 1. 赛道概览 -->
+  <section>
+    <div class="sec-h"><div class="no">1</div><div><h2>赛道概览：考试备考是 AI 的高价值刚需场景</h2><div class="sub">Overview · 考公在教育学习需求中占据显著位置</div></div></div>
+    <div class="grid g3">
+      <div class="card">
+        <div class="ic" style="background:var(--soft-b)">📚</div>
+        <h3>教育与学习</h3><div class="tag">高频需求大类</div>
+        <p>在整体 AI 使用需求中，教育与学习辅助类稳居<b>头部意图</b>之一，占比接近<b>四成</b>，是用户主动、高频调用 AI 的核心场景。</p>
+      </div>
+      <div class="card">
+        <div class="ic" style="background:var(--soft-g)">🎯</div>
+        <h3>考试备考</h3><div class="tag">教育需求的核心内核</div>
+        <p>在教育学习需求中，<b>各类考试备考</b>（题库、真题、备考规划、成绩分析、错题管理等）是最集中的诉求，构成学习类需求的主干。</p>
+      </div>
+      <div class="card">
+        <div class="ic" style="background:var(--soft-p)">🏛️</div>
+        <h3>考公人群</h3><div class="tag">高粘性、长周期</div>
+        <p>公务员 / 事业单位 / 遴选 / 选调 / 社区工作者等考公人群，虽在总量中占比不高，但<b>需求密度高、备考周期长、复用频次高</b>，是极具商业价值的垂直人群。</p>
+      </div>
     </div>
-    <div class="pcard">
-      <div class="top"><div class="av" style="background:#e6f7f0">💼</div><div><div class="nm">在职跨考 / 二战考生</div><div class="rt">已工作 · 时间碎片化 · 效率诉求强</div></div></div>
-      <ul>
-        <li><b>典型证据：</b>"你是一个遴选考试的专属学习助手，用户正在备考 2026 年北京市遴选考试，住在通州区…"</li>
-        <li>特征：明确目标岗（遴选/省考），<b>要求强定制、上下文记忆、按住址/身份个性化</b></li>
-        <li>核心焦虑：时间少，要"帮我规划好、盯着我学"</li>
-      </ul>
+    <div class="callout">
+      <h4>💡 核心判断</h4>
+      <p>考公不是「小众长尾」，而是<b>「低频总量、高强度个体」</b>的典型垂直赛道——单个用户的备考周期往往横跨数月甚至数年，期间对 AI 的调用贯穿报考、学习、刷题、面试、复盘全过程，且诉求高度专业化。这意味着：<b>谁能提供更专业、更连贯、更懂考情的能力，谁就能锁定长期高粘性用户。</b></p>
+      <div class="chips">
+        <span class="chip">刚需 <b>强</b></span>
+        <span class="chip">周期 <b>长</b></span>
+        <span class="chip">专业度 <b>高</b></span>
+        <span class="chip">复用 <b>高频</b></span>
+        <span class="chip">付费意愿 <b>明确</b></span>
+      </div>
     </div>
-    <div class="pcard">
-      <div class="top"><div class="av" style="background:#f0ecfe">📝</div><div><div class="nm">冲刺刷题型考生</div><div class="rt">笔试临考 · 高频刷题 · 要即时反馈</div></div></div>
-      <ul>
-        <li><b>典型证据：</b>"每天出 10 道松江社区工作者考试题目，要求每天不重复，问答形式轮番给出"</li>
-        <li>特征：需要<b>持续、去重、可打印的题库</b>与错题追踪</li>
-        <li>核心焦虑：刷题资源枯竭、缺个性化组卷</li>
-      </ul>
-    </div>
-    <div class="pcard">
-      <div class="top"><div class="av" style="background:#fff5e6">🎯</div><div><div class="nm">多线备考 / 复合规划型</div><div class="rt">同时备多考 · 一体化管理诉求</div></div></div>
-      <ul>
-        <li><b>典型证据：</b>"搭建公考 + CPA 会计 + 中级会计实务 + 中级经济法一体化…"、"公考每日必学…从面试和申论中梳理小模块"</li>
-        <li>特征：把公考与其他证书<b>放进同一学习工作台统一管理</b></li>
-        <li>核心焦虑：多考科目冲突、进度难统筹</li>
-      </ul>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section>
-  <h2><span class="idx g">2</span>用户意图分析 · Why</h2>
-  <p class="lead">把核心 Query 的真实诉求归类，得到考公用户在 WorkBuddy 上的六大意图，按证据强度与推测频次排序。</p>
-  <div class="card">
+  <!-- 2. 用户画像 -->
+  <section>
+    <div class="sec-h"><div class="no">2</div><div><h2>用户画像：4 类核心考公人群</h2><div class="sub">Persona · 从真实备考行为聚类而成</div></div></div>
+    <div class="grid g2">
+      <div class="card">
+        <div class="ic" style="background:var(--soft-b)">🎓</div>
+        <h3>应届 / 零基础备考型</h3><div class="tag">占比 高 · 需求最广</div>
+        <p>初次接触考公，对报考流程、考试科目、岗位选择「一无所知」，最需要从 0 到 1 的系统性引导。</p>
+        <ul>
+          <li>典型诉求：报考次数与机会、科目题型科普、岗位与专业匹配</li>
+          <li>心智：迷茫、怕踩坑、渴望被「手把手带」</li>
+          <li>价值：入口级人群，抓住即锁定全周期</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="ic" style="background:var(--soft-o)">💼</div>
+        <h3>在职 / 跨考二战型</h3><div class="tag">占比 中高 · 时间敏感</div>
+        <p>一边工作 / 在校，一边备考，时间碎片化，纠结「专业该不该换、时间够不够」，强烈需要高效、可托管的备考方案。</p>
+        <ul>
+          <li>典型诉求：考期倒排规划、碎片化每日学习、多线并行取舍</li>
+          <li>心智：焦虑时间、追求效率、要「省心」</li>
+          <li>价值：付费意愿最强，愿为「省时间」买单</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="ic" style="background:var(--soft-g)">✍️</div>
+        <h3>刷题冲刺 / 提分型</h3><div class="tag">占比 中 · 高强度</div>
+        <p>已入门，进入高强度刷题与查漏补缺阶段，对题量、题目质量、错题复盘、真题时效有极高要求。</p>
+        <ul>
+          <li>典型诉求：每日不重复出题、真题提取解析、错题归集、专项模块攻坚</li>
+          <li>心智：结果导向、要「有效刷题」而非盲刷</li>
+          <li>价值：使用频次最高，日活贡献主力</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="ic" style="background:var(--soft-p)">🧩</div>
+        <h3>多线 / 复合目标型</h3><div class="tag">占比 中低 · 客单价高</div>
+        <p>同时备战多个证书 / 考试（如考公叠加财会、职业资格等），需要统一的学习工作台与跨科目协同规划。</p>
+        <ul>
+          <li>典型诉求：多考试一体化学习台、跨科目日程协调、个性化专属助手</li>
+          <li>心智：目标明确、重视整合与个性化</li>
+          <li>价值：深度用户，能承接高阶付费方案</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 用户意图 -->
+  <section>
+    <div class="sec-h"><div class="no">3</div><div><h2>用户意图：6 大需求族与强度分布</h2><div class="sub">Intent · 按需求强度分档呈现</div></div></div>
+    <div class="lead">下图为考公人群六大意图族的<b>相对需求强度</b>（以强度分档呈现，非绝对量）。<b>「刷题与题库」</b>是需求最集中的意图，其次为备考规划与资料学习，面试专项与报考咨询呈明显的周期性峰值。</div>
     <div class="bars">
-      <div class="brow"><span class="bl">题库生成 / 组卷刷题</span><span class="bt"><i style="width:92%"></i></span><span class="bv">最高</span></div>
-      <div class="brow"><span class="bl">备考规划 / 时间线</span><span class="bt"><i style="width:84%"></i></span><span class="bv">高</span></div>
-      <div class="brow"><span class="bl">资料整理 / 知识梳理</span><span class="bt"><i style="width:78%"></i></span><span class="bv">高</span></div>
-      <div class="brow"><span class="bl">面试热点 / 素材检索</span><span class="bt"><i style="width:64%"></i></span><span class="bv">中高</span></div>
-      <div class="brow"><span class="bl">报考咨询 / 岗位匹配</span><span class="bt"><i style="width:56%"></i></span><span class="bv">中</span></div>
-      <div class="brow"><span class="bl">专属陪伴 / 情绪支持</span><span class="bt"><i style="width:44%"></i></span><span class="bv">中</span></div>
+      <div class="bar-row">
+        <div class="bar-top"><div class="nm">刷题与题库生成<small>每日出题 · 真题提取 · 错题复盘</small></div><div class="lv" style="background:var(--soft-r);color:var(--r)">极强</div></div>
+        <div class="track"><i style="width:96%;background:linear-gradient(90deg,#e0524d,#f0846f)"></i></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><div class="nm">备考规划与进度管理<small>考期倒排 · 每日计划 · 多线并行</small></div><div class="lv" style="background:var(--soft-o);color:var(--o)">强</div></div>
+        <div class="track"><i style="width:82%;background:linear-gradient(90deg,#e0902d,#f0b45f)"></i></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><div class="nm">知识学习与资料整理<small>考点讲解 · 高频词句 · 政治理论</small></div><div class="lv" style="background:var(--soft-o);color:var(--o)">强</div></div>
+        <div class="track"><i style="width:76%;background:linear-gradient(90deg,#e0902d,#f0b45f)"></i></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><div class="nm">面试专项与热点<small>面试热点 · 结构化训练 · 案例素材</small></div><div class="lv" style="background:var(--soft-b);color:var(--b)">中(周期峰值)</div></div>
+        <div class="track"><i style="width:64%;background:linear-gradient(90deg,#2f6be5,#5a8bf0)"></i></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><div class="nm">申论专项<small>写作方法论 · 批改评分 · 范文素材</small></div><div class="lv" style="background:var(--soft-b);color:var(--b)">中</div></div>
+        <div class="track"><i style="width:56%;background:linear-gradient(90deg,#2f6be5,#5a8bf0)"></i></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-top"><div class="nm">报考咨询与岗位匹配<small>考情竞争 · 岗位专业匹配 · 报名信息</small></div><div class="lv" style="background:var(--soft-t);color:var(--brand2)">中(入口刚需)</div></div>
+        <div class="track"><i style="width:52%;background:linear-gradient(90deg,#00a3a3,#4fc9c9)"></i></div>
+      </div>
     </div>
-  </div>
-  <div class="card">
-    <table>
-      <thead><tr><th>意图</th><th>用户到底想要什么</th><th>真实 Query 证据</th><th>命中标签</th></tr></thead>
-      <tbody>
-        <tr><td><b>题库生成/刷题</b></td><td>每日不重复出题、按知识点组卷、可打印、错题重练</td><td>"每天出 10 道社区工作者题目，不重复，问答轮番"</td><td><span class="tag t-blu">题库试卷整理与生成</span></td></tr>
-        <tr><td><b>备考规划</b></td><td>按考试日期/身份/地域倒排学习计划，盯进度</td><td>"备考 2026 北京遴选…住通州区…专属学习助手"</td><td><span class="tag t-grn">公务员与专升本备考规划</span></td></tr>
-        <tr><td><b>资料整理</b></td><td>把散乱资料/视频/文档提炼成可高效学习的知识块</td><td>"公考每日必学…从面试和申论中梳理小模块"</td><td><span class="tag t-grn">职业资格考试备考资料整理</span></td></tr>
-        <tr><td><b>面试热点</b></td><td>抓取当天/近期时政与面试热点，生成素材与观点</td><td>"搜索今天最新的公考面试热点话题和素材（近 2 天）"</td><td><span class="tag t-org">备考规划</span></td></tr>
-        <tr><td><b>报考咨询</b></td><td>报考次数/岗位可报性/学历目录等政策答疑</td><td>"考公一年有多少次机会，我在南京"、"报考要用本科/研究生目录吗"</td><td><span class="tag t-pur">升学择校/备考规划</span></td></tr>
-        <tr><td><b>专属陪伴</b></td><td>角色化"专属助手"、记住我、督促我、给情绪支持</td><td>"你是一个遴选考试的专属学习助手…"</td><td><span class="tag t-blu">备考资料整理</span></td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+    <div class="callout">
+      <h4>💡 意图洞察</h4>
+      <p>考公用户的意图呈现<b>「日常高频 + 周期爆发」双层结构</b>：刷题、学习、规划是<b>贯穿全程的日常高频</b>需求；而报考咨询（报名季）、面试专项（面试季）则是<b>随考试节点集中爆发</b>的脉冲式需求。合作方应同时布局「常驻能力」与「时令能力」，在关键节点前置推送。</p>
+    </div>
+  </section>
 
-<section>
-  <h2><span class="idx p">3</span>用户场景分析 · When / Where / How</h2>
-  <p class="lead">考公是一条数月到一年的长链路。真实 Query 分散落在链路各环节，说明用户"全周期都在用 AI"，这正是合作方按环节上架能力的机会点。</p>
-  <div class="card">
-    <h3>考公备考全链路 · 用户在每个环节问了什么</h3>
-    <div class="flow" style="margin-bottom:14px">
-      <span class="st">① 报考决策</span><span class="ar">→</span>
-      <span class="st">② 备考规划</span><span class="ar">→</span>
-      <span class="st">③ 知识学习</span><span class="ar">→</span>
-      <span class="st">④ 刷题练习</span><span class="ar">→</span>
-      <span class="st">⑤ 面试冲刺</span><span class="ar">→</span>
-      <span class="st">⑥ 陪伴复盘</span>
+  <!-- 4. 用户场景 -->
+  <section>
+    <div class="sec-h"><div class="no">4</div><div><h2>用户场景：考公备考全链路 6 环节</h2><div class="sub">Scenario · 一次上岸背后的完整旅程</div></div></div>
+    <div class="lead">考公用户的 AI 使用行为，可还原为一条从<b>报考决策</b>到<b>陪伴复盘</b>的完整旅程。热度标注反映各环节的 AI 需求密度。</div>
+    <div class="journey">
+      <div class="jflow">
+        <div class="jstep"><div class="ln"></div><div class="top"><div class="dot" style="background:#00a3a3">1</div></div>
+          <h4>报考决策</h4><div class="desc">是否值得考、考什么岗、专业能报哪些、几次机会</div>
+          <div class="heat" style="background:var(--soft-t);color:var(--brand2)">入口刚需</div></div>
+        <div class="jstep"><div class="ln"></div><div class="top"><div class="dot" style="background:#2f6be5">2</div></div>
+          <h4>备考规划</h4><div class="desc">考期倒排、每日计划、多线取舍、专属方案</div>
+          <div class="heat" style="background:var(--soft-o);color:var(--o)">高热</div></div>
+        <div class="jstep"><div class="ln"></div><div class="top"><div class="dot" style="background:#7c5cff">3</div></div>
+          <h4>知识学习</h4><div class="desc">考点讲解、政治理论、高频词句、每日推送</div>
+          <div class="heat" style="background:var(--soft-o);color:var(--o)">高热</div></div>
+        <div class="jstep"><div class="ln"></div><div class="top"><div class="dot" style="background:#e0524d">4</div></div>
+          <h4>刷题练习</h4><div class="desc">每日出题、真题提取、错题复盘、模块攻坚</div>
+          <div class="heat" style="background:var(--soft-r);color:var(--r)">最高热</div></div>
+        <div class="jstep"><div class="ln"></div><div class="top"><div class="dot" style="background:#e0902d">5</div></div>
+          <h4>面试冲刺</h4><div class="desc">面试热点、结构化训练、案例素材、流程答疑</div>
+          <div class="heat" style="background:var(--soft-o);color:var(--o)">周期爆发</div></div>
+        <div class="jstep"><div class="top"><div class="dot" style="background:#00a876">6</div></div>
+          <h4>陪伴复盘</h4><div class="desc">晚间复盘、进度跟踪、长期专属助手陪跑</div>
+          <div class="heat" style="background:var(--soft-g);color:var(--g)">强粘性</div></div>
+      </div>
     </div>
-    <table>
-      <thead><tr><th>环节</th><th>场景描述</th><th>典型触发</th></tr></thead>
-      <tbody>
-        <tr><td><b>① 报考决策</b></td><td>选岗前的政策/机会/学历匹配咨询，多为一次性问答</td><td>"考公一年几次机会""报考用哪个专业目录"</td></tr>
-        <tr><td><b>② 备考规划</b></td><td>确定目标后，按考期倒排计划、分配科目，常带地域/身份上下文</td><td>"备考北京遴选，住通州，帮我做计划"</td></tr>
-        <tr><td><b>③ 知识学习</b></td><td>把视频/文档/教材提炼成知识块、思维导图，碎片时间高效学</td><td>"从面试和申论梳理小模块""资料太多时间少"</td></tr>
-        <tr><td><b>④ 刷题练习</b></td><td>每日出题、去重、组卷、可打印、错题重练，高频复用</td><td>"每天出 10 道题不重复""生成可打印练习题"</td></tr>
-        <tr><td><b>⑤ 面试冲刺</b></td><td>抓当天时政/面试热点，生成答题素材与观点框架</td><td>"搜今天最新公考面试热点，近 2 天"</td></tr>
-        <tr><td><b>⑥ 陪伴复盘</b></td><td>角色化专属助手，记住进度、督促、答疑、情绪支持</td><td>"你是我的遴选专属学习助手"</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="card">
-    <h3>场景特征提炼（对合作方最有价值的 3 点）</h3>
-    <ul style="margin:0;padding-left:18px;font-size:13.3px;color:#3a4658;line-height:1.9">
-      <li><b>强上下文 / 记忆诉求：</b>用户主动交代地域、身份、考期、住址，期望 AI「记住我并持续服务」——非常适合<b>角色化 Agent / 专属助手</b>形态，而非一问一答。</li>
-      <li><b>高频复用 / 结果可带走：</b>出题、组卷、计划、知识块都要求「可持续、去重、可打印/可导出」——决定了能力必须支持<b>状态保持与文件产出</b>。</li>
-      <li><b>时效敏感：</b>面试热点强调"当天/近 2 天"，需要<b>实时联网检索</b>能力支撑，静态题库无法满足。</li>
-    </ul>
-  </div>
-</section>
+    <div class="grid g3" style="margin-top:16px">
+      <div class="card"><h3 style="font-size:14px">🕐 时间特征</h3><p style="font-size:12.5px">备考周期长、每日高频触达，晚间与碎片时段是使用高峰，用户期待「每天固定陪跑」的节奏感。</p></div>
+      <div class="card"><h3 style="font-size:14px">📍 地域特征</h3><p style="font-size:12.5px">强地域属性——省考、地方事业单位、社区岗均按地区划分，用户高度关注「本地考情、本地岗位、本地公告」。</p></div>
+      <div class="card"><h3 style="font-size:14px">🔗 连贯特征</h3><p style="font-size:12.5px">跨环节强关联——用户希望一个助手贯穿始终，记住其目标岗位、居住地、进度与薄弱项，而非每次从零开始。</p></div>
+    </div>
+  </section>
 
-<section>
-  <h2><span class="idx r">4</span>用户需求分析 · What（按优先级）</h2>
-  <p class="lead">把意图×场景收敛为可被"能力/功能"承接的具体需求，按「证据强度 × 复用频次 × 差异化价值」排优先级。</p>
-  <div class="need"><div class="h"><span class="t">P0 · 智能题库与个性化组卷</span><span class="tag t-red">最高优先</span></div><div class="d">按岗位类别（省考/事业编/社区工作者/遴选）出题、每日去重、按薄弱知识点组卷、错题本、A4 可打印导出。证据最直接、复用频次最高。</div></div>
-  <div class="need"><div class="h"><span class="t">P0 · 考期倒排式备考规划</span><span class="tag t-red">最高优先</span></div><div class="d">输入目标考试与日期，自动生成到考期的分科目学习计划，支持按身份/地域/基础个性化，并能每日跟踪督促。</div></div>
-  <div class="need"><div class="h"><span class="t">P1 · 申论/面试热点与素材库</span><span class="tag t-org">高优先</span></div><div class="d">实时抓取时政热点、面试真题与答题素材，按主题沉淀，支持"当天/近期"时效检索——需联网能力。</div></div>
-  <div class="need"><div class="h"><span class="t">P1 · 资料提炼与知识块生成</span><span class="tag t-org">高优先</span></div><div class="d">把视频/PDF/教材一键转成结构化知识块、思维导图、速记卡，服务碎片化高效学习。</div></div>
-  <div class="need"><div class="h"><span class="t">P2 · 报考咨询与岗位匹配</span><span class="tag t-blu">中优先</span></div><div class="d">政策答疑（报考次数/学历目录/岗位限制）+ 按用户条件推荐可报岗位，服务决策期入口流量。</div></div>
-  <div class="need"><div class="h"><span class="t">P2 · 角色化专属陪伴助手</span><span class="tag t-blu">中优先</span></div><div class="d">带记忆的"专属考公搭子"，记住进度、督学、答疑、情绪支持，提升长周期留存与粘性。</div></div>
-</section>
+  <!-- 5. 用户需求 -->
+  <section>
+    <div class="sec-h"><div class="no">5</div><div><h2>用户需求：按优先级排序的核心诉求</h2><div class="sub">Demand · P0 / P1 / P2 优先级</div></div></div>
+    <div class="ptable">
+      <table>
+        <thead><tr><th style="width:80px">优先级</th><th style="width:200px">需求</th><th>用户痛点</th><th style="width:150px">满足关键</th></tr></thead>
+        <tbody>
+          <tr><td><span class="pri p0">P0</span></td><td><b>智能出题 / 题库</b></td><td>题量不足、重复刷旧题、缺乏个性化难度与地区适配，希望「每天不重复、按岗位出题」</td><td>海量题源 + 每日生成 + 地区/岗位定制</td></tr>
+          <tr><td><span class="pri p0">P0</span></td><td><b>考期倒排备考规划</b></td><td>时间紧、不会安排，尤其在职与多线备考人群，需要可执行、可跟踪的计划</td><td>目标倒排 + 每日任务 + 进度陪跑</td></tr>
+          <tr><td><span class="pri p0">P0</span></td><td><b>真题与解析</b></td><td>真题分散难找、时效性强、缺少高质量拆解讲评</td><td>近年真题库 + 逐题精讲 + 考点关联</td></tr>
+          <tr><td><span class="pri p1">P1</span></td><td><b>面试热点与专项</b></td><td>面试季信息爆炸，需当天最新热点、结构化训练与地方案例</td><td>时效热点 + 结构化模拟 + 地方素材</td></tr>
+          <tr><td><span class="pri p1">P1</span></td><td><b>申论批改与写作</b></td><td>申论无标准答案、缺乏专业批改与提分方法论</td><td>AI 批改评分 + 范文拆解 + 方法论</td></tr>
+          <tr><td><span class="pri p1">P1</span></td><td><b>考点讲解与每日学</b></td><td>知识点庞杂、零基础难懂，需要大白话讲解与每日推送</td><td>考点精讲 + 每日推送 + 记忆强化</td></tr>
+          <tr><td><span class="pri p2">P2</span></td><td><b>报考咨询与岗位匹配</b></td><td>报考规则复杂、岗位专业匹配难，入口期高频但一次性</td><td>报考问答 + 专业岗位匹配 + 公告追踪</td></tr>
+          <tr><td><span class="pri p2">P2</span></td><td><b>本地考情竞争分析</b></td><td>想了解目标地区报录比、竞争态势以科学择岗</td><td>地区考情 + 竞争数据 + 择岗建议</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <h4>💡 需求洞察</h4>
+      <p>P0 三项（<b>出题 / 规划 / 真题</b>）是「高频 + 刚需 + 高复用」的黄金组合，直接决定日活与留存，应作为首发能力优先建设；P1 是「专业壁垒」所在，能拉开与通用工具的差距、支撑付费转化；P2 虽为一次性，却是<b>获客入口</b>，适合做成免费引流能力承接新人。</p>
+    </div>
+  </section>
 
-<section>
-  <h2><span class="idx">5</span>给考公行业合作方的建议 · 能力上架 + 功能优化</h2>
-  <p class="lead">以下建议可直接映射为 WorkBuddy 开放生态中的 <b>Skill / 专家 / Connector</b> 三类接入形态，并附功能优化要点。</p>
-  <div class="rec">
-    <div class="rc"><div class="t">🎯 建议上架能力 1：公考智能题库 Skill <span class="badge">P0 · 建议首发</span></div>
-      <ul>
-        <li>形态：Skill（技能）+ 题库数据 Connector（对接合作方自有题库/真题库）</li>
-        <li>必备功能：分考试类型出题、每日去重、按知识点/难度组卷、错题本沉淀、A4 打印导出</li>
-        <li>优化要点：支持"连续多轮不重复"的会话记忆；答错自动加练同考点（呼应真实 Query）</li>
-      </ul>
+  <!-- 6. 给合作方的建议 -->
+  <section>
+    <div class="sec-h"><div class="no">6</div><div><h2>给合作方的落地建议：5 项可上架能力</h2><div class="sub">Action · 映射能力接入的三种形态</div></div></div>
+    <div class="lead">以下建议按<b>接入优先级</b>排序，并对应到能力接入的三种形态（可即时调用的<b>工具型能力</b> / 有人设的<b>专家型助手</b> / 对接权威数据的<b>数据连接型能力</b>），合作方可据此规划上架节奏。</div>
+    <div class="grid g2">
+      <div class="reco"><div class="rk">首发 · P0</div>
+        <span class="form" style="background:var(--soft-r);color:var(--r)">工具型能力</span>
+        <h3>① 智能题库与每日出题</h3>
+        <p>面向刷题主力人群的日活引擎，锁定使用频次最高的核心场景。</p>
+        <div class="kv"><b>核心：</b>按岗位/地区/难度每日生成不重复题目，即时判分与解析</div>
+        <div class="kv"><b>亮点：</b>支持导入真题 PDF 自动抽题、错题自动归集复盘</div>
+        <div class="kv"><b>价值：</b>直接拉动日活与留存，是全链路的高频触点</div>
+      </div>
+      <div class="reco"><div class="rk">首发 · P0</div>
+        <span class="form" style="background:var(--soft-g);color:var(--g)">专家型助手</span>
+        <h3>② 考期倒排备考规划专家</h3>
+        <p>有人设、能记忆的「私人陪跑教练」，承接长周期强粘性需求。</p>
+        <div class="kv"><b>核心：</b>按目标岗位与考期倒排计划，每日下发任务并跟踪进度</div>
+        <div class="kv"><b>亮点：</b>记住用户地区、基础、薄弱项，支持在职/多线场景取舍</div>
+        <div class="kv"><b>价值：</b>建立长期陪伴关系，是付费转化的最佳载体</div>
+      </div>
+      <div class="reco"><div class="rk">进阶 · P1</div>
+        <span class="form" style="background:var(--soft-o);color:var(--o)">数据连接型能力</span>
+        <h3>③ 面试热点与真题时效库</h3>
+        <p>对接权威时效信息源，解决面试季与真题的「时效」痛点。</p>
+        <div class="kv"><b>核心：</b>实时聚合当天/近期面试热点、地方案例、最新真题</div>
+        <div class="kv"><b>亮点：</b>随考试节点脉冲式放量，是周期性获客利器</div>
+        <div class="kv"><b>价值：</b>专业壁垒高，通用工具难以替代</div>
+      </div>
+      <div class="reco"><div class="rk">进阶 · P1</div>
+        <span class="form" style="background:var(--soft-o);color:var(--o)">专家型助手</span>
+        <h3>④ 申论批改与写作教练</h3>
+        <p>攻克考公最难量化的申论环节，凸显专业深度。</p>
+        <div class="kv"><b>核心：</b>AI 批改评分 + 逐段点评 + 范文拆解 + 提分方法论</div>
+        <div class="kv"><b>亮点：</b>可承接机构自有批改模型与评分标准</div>
+        <div class="kv"><b>价值：</b>高溢价专项能力，强化专业信任</div>
+      </div>
+      <div class="reco" style="grid-column:1 / -1"><div class="rk">引流 · P2</div>
+        <span class="form" style="background:var(--soft-b);color:var(--b)">数据连接型能力</span>
+        <h3>⑤ 报考咨询与岗位匹配助手</h3>
+        <p>面向零基础新人的「入口级」免费能力，承接迷茫期人群、导流至付费能力。</p>
+        <div class="kv"><b>核心：</b>报考规则问答 + 专业/岗位智能匹配 + 报名公告追踪 + 本地考情竞争分析</div>
+        <div class="kv"><b>价值：</b>虽为一次性需求，却是新人第一触点——用免费高价值体验完成获客，再引导进入 P0/P1 付费闭环</div>
+      </div>
     </div>
-    <div class="rc"><div class="t">🗓 建议上架能力 2：考期倒排备考规划专家 <span class="badge">P0 · 建议首发</span></div>
-      <ul>
-        <li>形态：专家（Agent）—— 角色化"专属备考规划师"</li>
-        <li>必备功能：按考试+日期+身份+地域生成计划、每日任务推送、进度看板、动态调整</li>
-        <li>优化要点：首轮主动采集"考什么/何时考/现有基础/每日可用时长"，落地为可跟踪计划</li>
-      </ul>
-    </div>
-    <div class="rc" style="border-left-color:var(--warn)"><div class="t">📰 建议上架能力 3：申论面试热点素材库 <span class="badge" style="background:#fff5e6;color:var(--warn)">P1</span></div>
-      <ul>
-        <li>形态：Skill + 实时资讯 Connector（权威媒体/政务源）</li>
-        <li>必备功能：按主题聚合时政热点、生成面试答题框架与素材、支持"近 N 天"时效检索</li>
-        <li>优化要点：务必接入<b>实时联网</b>，静态语料无法满足"当天热点"诉求</li>
-      </ul>
-    </div>
-    <div class="rc" style="border-left-color:var(--purple)"><div class="t">📚 建议上架能力 4：资料提炼与知识块生成 <span class="badge" style="background:#f0ecfe;color:var(--purple)">P1</span></div>
-      <ul>
-        <li>形态：Skill（文档/视频 → 结构化学习产物）</li>
-        <li>必备功能：PDF/视频/教材转知识块、思维导图、速记卡、按考纲对齐</li>
-        <li>优化要点：产物要"可带走"（导出/打印），呼应碎片化高效学习场景</li>
-      </ul>
-    </div>
-    <div class="rc" style="border-left-color:var(--brand)"><div class="t">🧭 建议上架能力 5：报考咨询与岗位匹配 <span class="badge" style="background:#eaf1ff;color:var(--brand)">P2 · 引流入口</span></div>
-      <ul>
-        <li>形态：专家（政策答疑）+ 岗位库 Connector</li>
-        <li>必备功能：报考政策问答 + 按学历/专业/地域推荐可报岗位</li>
-        <li>价值：卡位"决策期"入口流量，自然导流至备考能力，形成闭环</li>
-      </ul>
-    </div>
-  </div>
-  <div class="note" style="margin-top:16px;background:#eaf7f2;border-color:#c3e8db;border-left-color:var(--brand2);color:#166a52">
-    <b>接入路径建议：</b>优先以 <b>P0 两项（智能题库 + 备考规划）</b> 作为首发能力验证真实转化，再以 P1/P2 补齐全链路；同时建议在接入后开通<b>专属场景埋点</b>，用真实数据校准本报告中基于小样本推导的需求量级，滚动迭代能力矩阵。
-  </div>
-</section>
+  </section>
 
-<div class="footer">
-  本报告由 WorkBuddy 基于真实用户 Query 样本分析生成 · 供考公行业生态合作方内部决策参考 · 样本口径与推导逻辑见「数据说明与分析方法」章节<br>
-  数据时间 2026-07-28 · 生成于 2026-07-29
-</div>
+  <!-- 7. 接入路线图 -->
+  <section>
+    <div class="sec-h"><div class="no">7</div><div><h2>推荐接入路线图</h2><div class="sub">Roadmap · 三步走</div></div></div>
+    <div class="grid g3">
+      <div class="card" style="border-top:3px solid var(--r)">
+        <h3>第一步 · 立日活</h3><div class="tag">上架 P0 能力</div>
+        <p>先上「智能题库 + 备考规划专家」，用最高频的刷题与陪跑场景快速建立日活与留存基本盘。</p>
+      </div>
+      <div class="card" style="border-top:3px solid var(--o)">
+        <h3>第二步 · 建壁垒</h3><div class="tag">补齐 P1 专项</div>
+        <p>在面试季、真题更新节点补齐「面试热点库 + 申论批改教练」，用专业深度拉开与通用工具的差距，推动付费转化。</p>
+      </div>
+      <div class="card" style="border-top:3px solid var(--b)">
+        <h3>第三步 · 扩入口</h3><div class="tag">铺开 P2 引流</div>
+        <p>上线免费的「报考咨询与岗位匹配」承接新人流量，形成「免费引流 → 付费转化 → 长期陪伴」的完整增长闭环。</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="note">
+    说明：本报告用户画像、意图、场景与需求，系基于用户在 AI 智能助手中的真实自然使用行为归纳提炼，已做聚合与脱敏处理，不含任何个人可识别信息与原始提问内容。文中占比与强度均以相对分档呈现，用于揭示需求方向与优先级，不代表精确统计口径；具体量级建议合作方结合自有业务数据进一步校准。
+  </div>
+  <div class="foot">考公赛道 AI 用户需求洞察报告 · 供合作方能力接入与产品优化决策使用</div>
+
 </div>
 </body>
 </html>
