@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WorkBuddy 开放平台 · 生态资源全生命周期标准化体系设计</title>
+<style>
+:root{
+  --bg:#f4f6fa; --card:#ffffff; --ink:#1a2233; --sub:#5b6b80; --line:#e6ebf2;
+  --blue:#2f6be5; --blue-bg:#eaf1ff; --teal:#00b3a4; --teal-bg:#e6f7f6;
+  --green:#00a876; --green-bg:#e6f7f0; --orange:#e0902d; --orange-bg:#fff5e6;
+  --red:#e0524d; --red-bg:#fdeceb; --purple:#7c5cff; --purple-bg:#f0ecff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;font-size:14.5px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 80px}
+/* Hero */
+.hero{background:linear-gradient(125deg,#1e2a52 0%,#2f4a8f 55%,#2f6be5 100%);color:#fff;padding:48px 44px 42px;border-radius:0 0 26px 26px;margin-bottom:30px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-60px;top:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(255,255,255,.12),transparent 70%);border-radius:50%}
+.hero .kick{font-size:13px;letter-spacing:2px;opacity:.8;font-weight:600}
+.hero h1{font-size:29px;margin:10px 0 12px;font-weight:800;letter-spacing:.5px}
+.hero p{font-size:14.5px;opacity:.9;max-width:760px}
+.hero .meta{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+.hero .meta span{background:rgba(255,255,255,.16);padding:5px 13px;border-radius:20px;font-size:12.5px;font-weight:600}
+/* section */
+section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin-bottom:22px}
+.sec-h{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.sec-h .no{width:32px;height:32px;border-radius:9px;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0}
+.sec-h h2{font-size:20px;font-weight:800}
+.sec-desc{color:var(--sub);font-size:13.5px;margin:2px 0 18px;padding-left:44px}
+h3{font-size:16px;font-weight:700;margin:22px 0 10px;padding-left:11px;border-left:4px solid var(--blue)}
+p.tx{color:#3a4658;margin:8px 0}
+.hl{background:#fff7d6;padding:0 3px;border-radius:3px;font-weight:600}
+.tag{display:inline-block;padding:1px 9px;border-radius:20px;font-size:11.5px;font-weight:700}
+.t-blue{background:var(--blue-bg);color:var(--blue)}.t-teal{background:var(--teal-bg);color:var(--teal)}
+.t-green{background:var(--green-bg);color:var(--green)}.t-orange{background:var(--orange-bg);color:var(--orange)}
+.t-red{background:var(--red-bg);color:var(--red)}.t-purple{background:var(--purple-bg);color:var(--purple)}
+/* 痛点卡 */
+.pain{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+.pain .p{border:1px solid var(--line);border-radius:12px;padding:15px 17px;background:#fbfcfe;border-left:4px solid var(--red)}
+.pain .p .pt{font-weight:700;font-size:14px;color:var(--red);display:flex;align-items:center;gap:7px}
+.pain .p .pd{font-size:12.8px;color:var(--sub);margin-top:6px}
+.pain .p .fix{font-size:12.5px;color:var(--green);margin-top:9px;font-weight:600}
+/* 表格 */
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:13px}
+th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+th{background:#f0f4fa;font-weight:700;color:#2a3547}
+tr:nth-child(even) td{background:#fafbfd}
+td .tag{white-space:nowrap}
+/* 流程条 */
+.flow{display:flex;align-items:stretch;gap:0;margin:18px 0;overflow-x:auto}
+.flow .step{flex:1;min-width:120px;background:#fbfcfe;border:1px solid var(--line);padding:14px 12px;position:relative;text-align:center}
+.flow .step:first-child{border-radius:12px 0 0 12px}
+.flow .step:last-child{border-radius:0 12px 12px 0}
+.flow .step .n{width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+.flow .step .st{font-weight:700;font-size:13.5px}
+.flow .step .sd{font-size:11.5px;color:var(--sub);margin-top:4px;line-height:1.5}
+.flow .step::after{content:"›";position:absolute;right:-9px;top:50%;transform:translateY(-50%);font-size:22px;color:var(--blue);z-index:2;background:var(--card);width:18px;text-align:center}
+.flow .step:last-child::after{display:none}
+.flow.g .step .n{background:var(--green)}.flow.g .step::after{color:var(--green)}
+/* 网格卡 */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.cd{border:1px solid var(--line);border-radius:12px;padding:16px 17px;background:#fbfcfe}
+.cd .ct{font-weight:700;font-size:14.5px;display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.cd .cbadge{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.cd ul{margin:6px 0 0;padding-left:17px}.cd li{font-size:12.8px;color:#3a4658;margin:4px 0}
+/* checklist */
+.ck{list-style:none;padding:0;margin:10px 0}
+.ck li{padding:7px 0 7px 28px;position:relative;font-size:13.3px;color:#3a4658;border-bottom:1px dashed var(--line)}
+.ck li:last-child{border-bottom:none}
+.ck li::before{content:"✓";position:absolute;left:4px;top:7px;color:var(--green);font-weight:800}
+.ck li.no::before{content:"✕";color:var(--red)}
+.ck li b{color:var(--ink)}
+/* 问题码示例 */
+.code{background:#1e2433;color:#e6ebf5;border-radius:10px;padding:16px 18px;font-family:"SF Mono",Consolas,monospace;font-size:12.5px;line-height:1.7;overflow-x:auto;margin:12px 0}
+.code .k{color:#7cc4ff}.code .r{color:#ff8f8f}.code .g{color:#8fe6b8}.code .y{color:#f0d68f}.code .c{color:#8a94a6}
+/* 安全分级 */
+.risk{display:flex;gap:12px;margin:14px 0;flex-wrap:wrap}
+.risk .r{flex:1;min-width:160px;border-radius:12px;padding:14px 16px;border:1px solid var(--line)}
+.risk .r .rl{font-weight:800;font-size:14px}.risk .r .rd{font-size:12.3px;color:var(--sub);margin-top:6px}
+.callout{border-radius:12px;padding:14px 18px;margin:14px 0;font-size:13.3px;display:flex;gap:12px;align-items:flex-start}
+.callout .ico{font-size:19px;flex-shrink:0}
+.co-blue{background:var(--blue-bg);border-left:4px solid var(--blue)}
+.co-green{background:var(--green-bg);border-left:4px solid var(--green)}
+.co-orange{background:var(--orange-bg);border-left:4px solid var(--orange)}
+.foot{text-align:center;color:var(--sub);font-size:12px;padding:26px 0 4px}
+.pillrow{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.pillrow .pill{background:#f0f4fa;border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:12.5px;font-weight:600;color:#3a4658}
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.kpi .k{background:#fbfcfe;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+.kpi .k .kv{font-size:22px;font-weight:800;color:var(--blue)}.kpi .k .kl{font-size:11.8px;color:var(--sub);margin-top:3px}
+@media(max-width:720px){.pain,.grid3,.grid2,.kpi{grid-template-columns:1fr}.hero{padding:34px 22px}}
+@media print{body{background:#fff}section{break-inside:avoid;box-shadow:none}.hero{border-radius:0}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="kick">WORKBUDDY OPEN PLATFORM · GOVERNANCE BLUEPRINT</div>
+  <h1>生态资源全生命周期标准化体系设计</h1>
+  <p>面向 Skill / 专家 / 连接器三类生态资源，构建从「引入 → 自测 → 提交 → 审核 → 上架 → 后链路」的端到端标准化、透明化、可度量的治理体系，同时守住安全底线、拉齐质量水位、优化合作方体验。</p>
+  <div class="meta"><span>三类资源统一治理</span><span>六段全链路</span><span>标准公开 · 自助自测</span><span>分级审核 · 结构化反馈</span><span>安全基线贯穿</span></div>
+</div>
+
+<div class="wrap">
+
+<!-- 0 现状与目标 -->
+<section>
+  <div class="sec-h"><div class="no">0</div><h2>现状诊断与设计目标</h2></div>
+  <div class="sec-desc">先把当前链路的四类核心痛点定位清楚，再对应给出体系化解法——本方案的每一节都在回应这些痛点。</div>
+
+  <h3>当前链路的四大痛点</h3>
+  <div class="pain">
+    <div class="p"><div class="pt">① 上传前：无自测、标准不透明</div>
+      <div class="pd">用户不知道平台要求什么、自己的资源合不合格，只能在 WorkBuddy 里手动试一下就盲传，没有任何"提交前体检"手段。</div>
+      <div class="fix">→ 解法：标准全公开 + 自助检测工具（Linter + 沙箱试运行）</div></div>
+    <div class="p"><div class="pt">② 审核中：黑盒、问题定位不清</div>
+      <div class="pd">系统只给"大概的问题"，指不到具体哪行、怎么改，每次都要拉开发和合作方一起看，沟通成本极高。</div>
+      <div class="fix">→ 解法：分级审核 + 结构化问题码（可定位、附修复建议）</div></div>
+    <div class="p"><div class="pt">③ 无标准：分类/准入无依据</div>
+      <div class="pd">哪些合作方、什么样的资源符合接入标准，没有明文分级，也没有"选 Skill 还是专家还是连接器"的判定规则。</div>
+      <div class="fix">→ 解法：分类选型规则 + 分级准入门槛（P0/P1/P2）</div></div>
+    <div class="p"><div class="pt">④ 上架后：无后链路、看不到效果</div>
+      <div class="pd">上架即失联，不知道线上表现、稳定性、用户反馈，出问题只能自己去体验才发现，没有监控和退出机制。</div>
+      <div class="fix">→ 解法：质量分 + 运行监控 + 灰度/巡检/下架闭环</div></div>
+  </div>
+
+  <h3>体系设计目标（四个"化"）</h3>
+  <div class="grid2">
+    <div class="cd"><div class="ct"><span class="cbadge t-blue">◱</span>标准化</div><ul><li>三类资源各有明文、可核对的准入标准与提交清单</li><li>审核规则、评分维度、SLA 全部公开可查</li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-green">◱</span>透明化</div><ul><li>提交前可自测，问题反馈可定位到行、附修复建议</li><li>审核进度、状态、后链路数据对合作方可视</li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-red">◱</span>安全化</div><ul><li>凭证/权限/数据/网络四层安全基线贯穿全链路</li><li>按风险分级管控，高风险强制人工+安全评审</li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-purple">◱</span>度量化</div><ul><li>统一质量分模型，上架后持续打分</li><li>低分自动预警、灰度、限流直至下架</li></ul></div>
+  </div>
+</section>
+
+<!-- 1 三类资源分类与选型 -->
+<section>
+  <div class="sec-h"><div class="no">1</div><h2>先分类：三类资源的定位与选型规则</h2></div>
+  <div class="sec-desc">连接器、Skill、专家不是平行竞品，而是「连接外部 → 封装能力 → 打包角色」的三层递进。分类错了，后面所有标准都会错位。</div>
+
+  <table>
+    <tr><th>资源类型</th><th>一句话定位</th><th>本质</th><th>典型场景</th><th>核心风险面</th></tr>
+    <tr><td><span class="tag t-blue">连接器 Connector</span></td><td>让 AI 能接触外部系统的<b>入口</b></td><td>数据/操作的通道（MCP / CLI）</td><td>接公司自有 API、第三方 SaaS、内部系统</td><td>凭证、鉴权、数据出境、服务稳定性</td></tr>
+    <tr><td><span class="tag t-green">Skill</span></td><td>让 AI 会做某类活儿的<b>说明书</b></td><td>流程/方法的封装</td><td>固定套路反复做（如按模板出文档）</td><td>提示注入、越权指令、脚本执行</td></tr>
+    <tr><td><span class="tag t-purple">专家 Expert</span></td><td>把人设+知识+Skill+连接器打包成的<b>角色</b></td><td>完整角色（可含团队编排）</td><td>需要固定人设+方法论+数据的岗位</td><td>上述全部 + 内容合规、头像合规</td></tr>
+  </table>
+
+  <div class="callout co-blue"><div class="ico">◆</div><div><b>选型判定规则（内置到提交入口的向导）：</b>问题本质是"接不上外部数据/操作" → 选<b>连接器</b>；是"同一套活儿反复做" → 选<b>Skill</b>；是"要一个有人设、有方法论、能调数据的完整角色" → 选<b>专家</b>（专家内部可同时挂载多个 Skill / 连接器）。提交入口第一步就用三个问题把用户导到正确类型，避免错分类。</div></div>
+</section>
+
+<!-- 2 全链路总览 -->
+<section>
+  <div class="sec-h"><div class="no">2</div><h2>全链路总览：六段式生命周期</h2></div>
+  <div class="sec-desc">把原来"做完→盲传→黑盒审→上架失联"的三步，重构为透明可控的六段闭环。每一段都有明确的准入物、责任人、通过标准。</div>
+
+  <div class="flow">
+    <div class="step"><div class="n">1</div><div class="st">引入准入</div><div class="sd">合作方分级<br>资质与资源登记</div></div>
+    <div class="step"><div class="n">2</div><div class="st">开发自测</div><div class="sd">标准公开<br>Linter+沙箱自检</div></div>
+    <div class="step"><div class="n">3</div><div class="st">提交</div><div class="sd">材料完整性<br>机审预检</div></div>
+    <div class="step"><div class="n">4</div><div class="st">分级审核</div><div class="sd">机审→人审→安审<br>结构化问题码</div></div>
+    <div class="step"><div class="n">5</div><div class="st">灰度上架</div><div class="sd">小流量灰度<br>观察期</div></div>
+    <div class="step"><div class="n">6</div><div class="st">后链路运营</div><div class="sd">质量分+监控<br>巡检/迭代/下架</div></div>
+  </div>
+
+  <div class="callout co-green"><div class="ico">✦</div><div>贯穿六段的三条主线：<b>①标准线</b>（每段都有可核对的明文标准）<b>②安全线</b>（凭证/权限/数据/网络四层基线全程校验）<b>③度量线</b>（从提交到线上，用统一质量分持续打分）。</div></div>
+</section>
+
+<!-- 3 阶段一 引入准入 -->
+<section>
+  <div class="sec-h"><div class="no">3</div><h2>阶段一 · 引入准入：合作方与资源分级</h2></div>
+  <div class="sec-desc">解决"哪些合作方/资源符合接入标准没标准"的问题——先给合作方分级、给资源定风险级，后续审核力度按级匹配。</div>
+
+  <h3>合作方分级（决定审核力度与权限）</h3>
+  <table>
+    <tr><th>级别</th><th>典型对象</th><th>准入要求</th><th>权限与待遇</th></tr>
+    <tr><td><span class="tag t-purple">S · 战略合作</span></td><td>标杆生态伙伴、深度定制方</td><td>商务签约 + 安全协议 + 专属对接人</td><td>绿色通道、联合运营、优先推荐位</td></tr>
+    <tr><td><span class="tag t-blue">A · 认证开发者</span></td><td>企业主体、通过资质认证</td><td>企业实名 + 历史合规记录良好</td><td>标准 SLA、可提交高风险类资源</td></tr>
+    <tr><td><span class="tag t-green">B · 普通开发者</span></td><td>个人/小团队开发者</td><td>实名注册 + 同意开发者协议</td><td>仅可提交低/中风险资源，审核从严</td></tr>
+  </table>
+
+  <h3>资源风险分级（决定审核路径，见阶段四）</h3>
+  <div class="risk">
+    <div class="r" style="border-left:4px solid var(--red)"><div class="rl" style="color:var(--red)">P0 高风险</div><div class="rd">涉资金/支付、可写外部系统、访问敏感个人数据、需数据出境、可执行本机命令。强制安全评审。</div></div>
+    <div class="r" style="border-left:4px solid var(--orange)"><div class="rl" style="color:var(--orange)">P1 中风险</div><div class="rd">读写业务数据、需 OAuth/Token 鉴权、有外呼调用。机审+人审。</div></div>
+    <div class="r" style="border-left:4px solid var(--green)"><div class="rl" style="color:var(--green)">P2 低风险</div><div class="rd">纯本地流程 Skill、只读公开数据、无凭证、无外部副作用。机审为主+抽检。</div></div>
+  </div>
+  <p class="tx"><span class="hl">风险级 × 合作方级 = 审核矩阵</span>：如 B 级开发者提交 P0 资源默认不受理，需先升级为 A 级或走 S 级担保。</p>
+</section>
+
+<!-- 4 阶段二 开发自测 -->
+<section>
+  <div class="sec-h"><div class="no">4</div><h2>阶段二 · 开发自测：把标准前置，让用户自己测</h2></div>
+  <div class="sec-desc">这是解决"上传前不知道要求、没测试工具"最关键的一段——用「标准公开 + 自助检测工具」把审核标准前移到开发者手里。</div>
+
+  <h3>① 标准全公开：开发者门户（Developer Hub）</h3>
+  <p class="tx">在配置平台建立公开的「开发者门户」，把此前散落的规范集中沉淀为可检索的标准中心：</p>
+  <div class="pillrow">
+    <span class="pill">接入规范（连接器 v3.0 / 专家 v2.3）</span><span class="pill">提交检查清单</span><span class="pill">命名规范</span>
+    <span class="pill">凭证与安全要求</span><span class="pill">性能基线（QPS/延迟/超时）</span><span class="pill">内容合规红线</span><span class="pill">评分维度与权重</span><span class="pill">审核 SLA</span><span class="pill">完整示例模板</span>
+  </div>
+
+  <h3>② 自助检测工具（提交前必须绿灯）</h3>
+  <div class="grid3">
+    <div class="cd"><div class="ct"><span class="cbadge t-blue">1</span>结构 Linter</div><ul><li>校验文件结构、必填字段、命名规范</li><li>一致性约束（如 plugin.json 各 ID 对应关系）</li><li>秒级返回，问题定位到字段/行</li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-orange">2</span>安全扫描</div><ul><li>检测硬编码 Token/密钥、危险指令</li><li>提示注入模式、越权工具声明</li><li>凭证占位与 headers 一一对应校验</li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-green">3</span>沙箱试运行</div><ul><li>隔离环境真实加载资源并跑用例</li><li>连接器可跑连通性/压测预检</li><li>输出运行录像与调用轨迹供自查</li></ul></div>
+  </div>
+
+  <div class="callout co-orange"><div class="ico">▲</div><div><b>连接器专项——性能基线自测（源自 v3.0 规范硬指标）：</b>提交前须用 k6/wrk 完成压测并达标：<span class="tag t-teal">QPS ≥ 50</span> <span class="tag t-teal">P50 ≤ 500ms</span> <span class="tag t-teal">P99 ≤ 3000ms</span> <span class="tag t-teal">超时率 &lt; 1%</span> <span class="tag t-teal">错误率 ≤ 0.5%</span> <span class="tag t-teal">并发长连 ≥ 200</span> <span class="tag t-teal">SLA ≥ 99.9%</span>。工具自动生成压测报告模板，开发者一键校验是否达标。</div></div>
+
+  <ul class="ck">
+    <li>自测工具与线上审核<b>共用同一套规则引擎</b>——自测绿灯 = 机审必过，杜绝"自测过了审核却挂"的割裂感</li>
+    <li>自测报告随提交包一起带上，审核员可直接复用，减少重复核对</li>
+    <li>门户提供三类资源的<b>脚手架模板</b>（一键生成合规骨架），从源头降低出错率</li>
+  </ul>
+</section>
+
+<!-- 5 阶段三+四 提交与分级审核 -->
+<section>
+  <div class="sec-h"><div class="no">5</div><h2>阶段三·四 · 提交与分级审核：把黑盒变透明</h2></div>
+  <div class="sec-desc">解决"审核黑盒、问题指不清、每次都要拉人一起看"——用「三级审核流水线 + 结构化问题码」让反馈可定位、可自助修复。</div>
+
+  <h3>三级审核流水线</h3>
+  <div class="flow g">
+    <div class="step"><div class="n">A</div><div class="st">机审（自动）</div><div class="sd">复用自测规则引擎<br>结构/一致性/安全扫描<br>分钟级出结果</div></div>
+    <div class="step"><div class="n">B</div><div class="st">人审（内容质量）</div><div class="sd">功能完整性/描述准确<br>内容合规/头像合规<br>体验与价值判断</div></div>
+    <div class="step"><div class="n">C</div><div class="st">安审（仅 P0/P1）</div><div class="sd">安全评审+数据合规<br>凭证与权限最小化<br>高风险专项评估</div></div>
+  </div>
+  <p class="tx">路径按风险级自动分流：<b>P2</b> 机审通过即可（抽检人审）；<b>P1</b> 机审→人审；<b>P0</b> 机审→人审→安审，三关全过方可上架。</p>
+
+  <h3>结构化问题码：让"大概的问题"变成"可定位可修复"</h3>
+  <p class="tx">审核系统对每个问题输出统一格式：<b>问题码 + 位置 + 原因 + 修复建议 + 参考文档链接</b>。开发者无需拉人即可自助修复：</p>
+  <div class="code">
+<span class="c"># 审核反馈示例（结构化、可定位）</span>
+<span class="r">✗ [SEC-013] 硬编码凭证</span>  文件: skills/SKILL.md  行: 42
+  <span class="k">原因</span>: 检测到明文 API Key「sk-xxxx」，违反凭证安全基线
+  <span class="g">修复</span>: 改用 ${API_KEY} 占位，并在 tokenSchema.fields 声明；见《连接器规范 v3.0 · 第7章》
+<span class="r">✗ [CONSIST-002] 一致性约束不通过</span>  文件: plugin.json  字段: agentName
+  <span class="k">原因</span>: agentName「sales-bot」≠ Agent MD 文件名「sales_bot.md」
+  <span class="g">修复</span>: 三者需一致（agentName = 定义文件 name = 文件名），统一为 sales-bot
+<span class="y">⚠ [PERF-005] 性能基线未达标</span>  压测报告  指标: P99=4200ms
+  <span class="k">原因</span>: P99 延迟超出 3000ms 上限
+  <span class="g">修复</span>: 优化慢接口或提升服务规格后重新压测
+  </div>
+
+  <div class="grid2">
+    <div class="cd"><div class="ct"><span class="cbadge t-blue">问题码分域</span></div><ul><li><b>STRUCT-</b> 结构/文件/字段　<b>CONSIST-</b> 一致性约束</li><li><b>NAMING-</b> 命名规范　<b>SEC-</b> 安全/凭证</li><li><b>PERF-</b> 性能基线　<b>CONTENT-</b> 内容合规</li><li><b>META-</b> 描述/图标　<b>FUNC-</b> 功能完整性</li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-green">审核体验保障</span></div><ul><li>状态全程可视：已提交/机审中/待人审/需修改/已通过</li><li>SLA 公开：机审分钟级、人审 3 个工作日内出结果</li><li>一次性返回<b>全部</b>问题，避免反复往返打回</li><li>驳回附<b>可复现步骤</b>，开发者本地即可验证</li></ul></div>
+  </div>
+</section>
+
+<!-- 6 安全基线 -->
+<section>
+  <div class="sec-h"><div class="no">6</div><h2>贯穿全链路的安全基线（四层）</h2></div>
+  <div class="sec-desc">解决"不安全"——安全不是审核某一关，而是四层基线在自测、审核、运行全程强制校验。多数条目源自现有 MCP OAuth 与连接器安全规范。</div>
+
+  <div class="grid2">
+    <div class="cd"><div class="ct"><span class="cbadge t-red">① 凭证安全</span></div><ul><li>严禁硬编码 Token/密钥（机扫强制拦截）</li><li>OAuth2.0 + PKCE；Token 由平台安全存储与自动刷新</li><li>用户自填 Token 走 tokenSchema，占位与 headers 一一对应</li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-orange">② 权限最小化</span></div><ul><li>只申请必要工具与数据范围，专家不得私自声明 tools</li><li>可写/高危操作需二次确认与显式授权</li><li>权限变更须重新审核</li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-blue">③ 数据安全</span></div><ul><li>敏感数据传输强制 HTTPS（localhost 除外）</li><li>数据出境/驻留需声明并合规评估</li><li>最小采集、用途透明、不留存无关数据</li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-purple">④ 网络与运行</span></div><ul><li>redirect_uri 严格匹配、state 防 CSRF、授权码一次性</li><li>服务出站可管控，超时/异常有兜底</li><li>沙箱隔离运行，越权访问即阻断</li></ul></div>
+  </div>
+
+  <table>
+    <tr><th>攻击/风险</th><th>防护机制</th><th>校验环节</th></tr>
+    <tr><td>凭证泄露</td><td>禁硬编码 + 平台安全存储 + 自动刷新</td><td>自测机扫 / 机审</td></tr>
+    <tr><td>授权码拦截 / CSRF</td><td>PKCE + state 校验 + redirect_uri 精确匹配</td><td>安审（P0/P1）</td></tr>
+    <tr><td>提示注入 / 越权指令</td><td>注入模式扫描 + 工具权限白名单</td><td>安全扫描 / 人审</td></tr>
+    <tr><td>数据违规出境</td><td>数据流声明 + 合规评估</td><td>安审</td></tr>
+    <tr><td>服务不稳定拖垮体验</td><td>压测达标 + 上线后可用性监控</td><td>自测 / 后链路</td></tr>
+  </table>
+</section>
+
+<!-- 7 质量分与后链路 -->
+<section>
+  <div class="sec-h"><div class="no">7</div><h2>阶段五·六 · 灰度上架与后链路运营</h2></div>
+  <div class="sec-desc">解决"上架后失联、不知道效果"——用「灰度观察 + 统一质量分 + 运行监控 + 退出机制」把上架从终点变成运营起点。</div>
+
+  <h3>灰度上架</h3>
+  <p class="tx">审核通过后不直接全量，先<b>小流量灰度</b>（限定用户群/比例），设 7~14 天观察期，达标才转全量；灰度期异常可秒级回滚，不影响大盘。</p>
+
+  <h3>统一质量分模型（0–100，持续打分）</h3>
+  <div class="kpi">
+    <div class="k"><div class="kv">30%</div><div class="kl">稳定性<br>成功率/错误率/延迟</div></div>
+    <div class="k"><div class="kv">30%</div><div class="kl">效果<br>调用量/完成率/复用</div></div>
+    <div class="k"><div class="kv">25%</div><div class="kl">满意度<br>评分/反馈/留存</div></div>
+    <div class="k"><div class="kv">15%</div><div class="kl">合规<br>安全事件/投诉</div></div>
+  </div>
+
+  <h3>后链路监控与退出闭环</h3>
+  <div class="flow">
+    <div class="step"><div class="n">◉</div><div class="st">实时监控</div><div class="sd">可用性/错误率<br>调用量/延迟看板</div></div>
+    <div class="step"><div class="n">◉</div><div class="st">定期巡检</div><div class="sd">抽样体验+回归<br>合规复检</div></div>
+    <div class="step"><div class="n">◉</div><div class="st">分级预警</div><div class="sd">质量分下滑<br>自动告警合作方</div></div>
+    <div class="step"><div class="n">◉</div><div class="st">干预处置</div><div class="sd">限流→降权→<br>下架整改</div></div>
+    <div class="step"><div class="n">◉</div><div class="st">迭代复评</div><div class="sd">版本更新<br>回到审核流程</div></div>
+  </div>
+
+  <table>
+    <tr><th>质量分区间</th><th>处置动作</th></tr>
+    <tr><td><span class="tag t-green">≥ 85 优秀</span></td><td>推荐位加权、纳入标杆案例、联合运营</td></tr>
+    <tr><td><span class="tag t-blue">70–85 合格</span></td><td>正常展示，给出优化建议</td></tr>
+    <tr><td><span class="tag t-orange">60–70 预警</span></td><td>降低曝光权重 + 通知合作方限期整改</td></tr>
+    <tr><td><span class="tag t-red">&lt; 60 不合格</span></td><td>限流/下架整改，安全事件一票下架</td></tr>
+  </table>
+</section>
+
+<!-- 8 角色权责与落地 -->
+<section>
+  <div class="sec-h"><div class="no">8</div><h2>角色权责与落地节奏</h2></div>
+  <div class="sec-desc">体系要跑起来，靠的是清晰的权责分工 + 分期落地，避免一次性铺太大。</div>
+
+  <h3>全链路 RACI（谁负责什么）</h3>
+  <table>
+    <tr><th>环节</th><th>合作方/开发者</th><th>平台运营（贵部门）</th><th>研发/安全</th></tr>
+    <tr><td>标准与工具</td><td>遵循 · 反馈</td><td><b>制定 · 维护</b></td><td>建工具 · 提供规则引擎</td></tr>
+    <tr><td>自测</td><td><b>执行 · 达标</b></td><td>提供门户与模板</td><td>维护 Linter/沙箱</td></tr>
+    <tr><td>审核</td><td>提交 · 修复</td><td><b>人审 · 决策</b></td><td>机审引擎 · 安审支持</td></tr>
+    <tr><td>上架/灰度</td><td>确认</td><td><b>灰度策略 · 放量</b></td><td>灰度与回滚能力</td></tr>
+    <tr><td>后链路</td><td>响应整改</td><td><b>监控 · 巡检 · 处置</b></td><td>监控看板 · 告警</td></tr>
+  </table>
+
+  <h3>分三期落地</h3>
+  <div class="grid3">
+    <div class="cd"><div class="ct"><span class="cbadge t-green">一期 · 立标准</span></div><ul><li>开发者门户上线，标准全公开</li><li>结构 Linter + 安全扫描（复用现有规范）</li><li>结构化问题码接入审核反馈</li><li><b>先解决"标准不透明+黑盒"</b></li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-blue">二期 · 建闭环</span></div><ul><li>沙箱试运行 + 压测预检</li><li>三级分级审核流水线</li><li>灰度上架 + 质量分模型</li><li><b>补齐"自测+分级+后链路"</b></li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-purple">三期 · 精运营</span></div><ul><li>后链路监控看板 + 自动预警处置</li><li>合作方分级权益 + 联合运营</li><li>质量分驱动的推荐与激励</li><li><b>从"管住"到"运营好"</b></li></ul></div>
+  </div>
+
+  <div class="callout co-blue"><div class="ico">◆</div><div><b>一句话总结体系价值：</b>把"做完盲传→黑盒审核→上架失联"的原始链路，升级为"<b>标准可查、提交前自测绿灯、审核可定位、上架先灰度、线上有分有监控</b>"的透明闭环——用户体验更好、安全底线更稳、生态质量水位更高。</div></div>
+</section>
+
+<div class="foot">WorkBuddy 开放平台 · 生态资源全生命周期标准化体系设计 · 供部门内部规划与落地讨论使用</div>
+
+</div>
+</body>
+</html>
