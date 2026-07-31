@@ -72,6 +72,8 @@ td .tag{white-space:nowrap}
 .ck li::before{content:"✓";position:absolute;left:4px;top:7px;color:var(--green);font-weight:800}
 .ck li.no::before{content:"✕";color:var(--red)}
 .ck li b{color:var(--ink)}
+.cd .ck li{padding:6px 0 6px 22px;font-size:12.6px;line-height:1.6}
+.cd .ck li::before{left:1px;top:6px;font-size:12px}
 /* 问题码示例 */
 .code{background:#1e2433;color:#e6ebf5;border-radius:10px;padding:16px 18px;font-family:"SF Mono",Consolas,monospace;font-size:12.5px;line-height:1.7;overflow-x:auto;margin:12px 0}
 .code .k{color:#7cc4ff}.code .r{color:#ff8f8f}.code .g{color:#8fe6b8}.code .y{color:#f0d68f}.code .c{color:#8a94a6}
@@ -100,7 +102,7 @@ td .tag{white-space:nowrap}
   <div class="kick">WORKBUDDY OPEN PLATFORM · GOVERNANCE BLUEPRINT</div>
   <h1>生态资源全生命周期标准化体系设计</h1>
   <p>面向 Skill / 专家 / 连接器三类生态资源，构建从「引入 → 自测 → 提交 → 审核 → 上架 → 后链路」的端到端标准化、透明化、可度量的治理体系，同时守住安全底线、拉齐质量水位、优化合作方体验。</p>
-  <div class="meta"><span>三类资源统一治理</span><span>六段全链路</span><span>标准公开 · 自助自测</span><span>分级审核 · 结构化反馈</span><span>申诉复议 · 审核一致</span><span>安全基线 · 应急熔断</span><span>质量分 · 体系可度量</span></div>
+  <div class="meta"><span>三类资源统一治理</span><span>六段全链路</span><span>标准公开 · 自助自测</span><span>分级审核 · 结构化反馈</span><span>白名单自主上架</span><span>申诉复议 · 审核一致</span><span>安全基线 · 应急熔断</span><span>质量分 · 体系可度量</span></div>
 </div>
 
 <div class="wrap">
@@ -119,8 +121,8 @@ td .tag{white-space:nowrap}
       <div class="pd">系统只给"大概的问题"，指不到具体哪行、怎么改，每次都要拉开发和合作方一起看，沟通成本极高。</div>
       <div class="fix">→ 解法：分级审核 + 结构化问题码（可定位、附修复建议）</div></div>
     <div class="p"><div class="pt">③ 无标准：分类/准入无依据</div>
-      <div class="pd">哪些合作方、什么样的资源符合接入标准，没有明文分级，也没有"选 Skill 还是专家还是连接器"的判定规则。</div>
-      <div class="fix">→ 解法：分类选型规则 + 分级准入门槛（P0/P1/P2）</div></div>
+      <div class="pd">哪些合作方、什么样的资源符合接入标准，没有明文分级，也没有"选 Skill 还是专家还是连接器"的判定规则；更没有"谁可以自主上架"的资格线，所有人一律排队全审。</div>
+      <div class="fix">→ 解法：分类选型规则 + 分级准入门槛 + 白名单自主上架资格线</div></div>
     <div class="p"><div class="pt">④ 上架后：无后链路、看不到效果</div>
       <div class="pd">上架即失联，不知道线上表现、稳定性、用户反馈，出问题只能自己去体验才发现，没有监控和退出机制。</div>
       <div class="fix">→ 解法：质量分 + 运行监控 + 灰度/巡检/下架闭环</div></div>
@@ -174,25 +176,112 @@ td .tag{white-space:nowrap}
 
 <!-- 3 阶段一 引入准入 -->
 <section>
-  <div class="sec-h"><div class="no">3</div><h2>阶段一 · 引入准入：合作方与资源分级</h2></div>
-  <div class="sec-desc">解决"哪些合作方/资源符合接入标准没标准"的问题——先给合作方分级、给资源定风险级，后续审核力度按级匹配。</div>
+  <div class="sec-h"><div class="no">3</div><h2>阶段一 · 引入准入：分级标准与白名单自主上架</h2></div>
+  <div class="sec-desc">解决"哪些合作方/资源符合接入标准没标准"的问题。本节给出三套硬标准：<b>①合作方主体准入门槛 ②资源风险分级 ③白名单自主上架资格线</b>，并明确不符合要求的红线清单。</div>
 
-  <h3>合作方分级（决定审核力度与权限）</h3>
+  <div class="callout co-blue"><div class="ico">◆</div><div><b>标准制定依据（对标国内外主流平台 + 结合腾讯合规基线）：</b>
+  <b>OpenAI Apps/Plugins</b>——发布主体必须完成个人/企业身份验证（未验证直接拒），MCP 必须公网生产域名，工具注解须与真实行为一致，最小必要输入，提交须附 5 正向 + 3 负向测试用例；
+  <b>MCP 官方 Registry</b>——manifest schema 强校验 + 可信审核者复核；
+  <b>VS Code Marketplace</b>——Verified Publisher 需域名所有权 + 平台良好信誉且满 6 个月，且每次发布强制恶意扫描、沙箱动态行为检测、异常监控、防名称抢注、封锁清单可远程卸载；
+  <b>腾讯基线</b>——企业实名与主体资质、数据安全与个人信息保护、内容安全审核、特殊类目资质前置。</div></div>
+
+  <h3>① 合作方主体准入门槛（基础资格，不达标不予受理）</h3>
   <table>
-    <tr><th>级别</th><th>典型对象</th><th>准入要求</th><th>权限与待遇</th></tr>
-    <tr><td><span class="tag t-purple">S · 战略合作</span></td><td>标杆生态伙伴、深度定制方</td><td>商务签约 + 安全协议 + 专属对接人</td><td>绿色通道、联合运营、优先推荐位</td></tr>
-    <tr><td><span class="tag t-blue">A · 认证开发者</span></td><td>企业主体、通过资质认证</td><td>企业实名 + 历史合规记录良好</td><td>标准 SLA、可提交高风险类资源</td></tr>
-    <tr><td><span class="tag t-green">B · 普通开发者</span></td><td>个人/小团队开发者</td><td>实名注册 + 同意开发者协议</td><td>仅可提交低/中风险资源，审核从严</td></tr>
+    <tr><th>级别</th><th>典型对象</th><th>准入硬门槛</th><th>可提交风险级</th></tr>
+    <tr><td><span class="tag t-purple">S · 战略合作</span></td><td>标杆生态伙伴、深度定制方</td><td>企业实名 + 商务签约 + 数据安全/保密协议 + 专属对接人 + 安全联系人 7×24 可达</td><td>P0 / P1 / P2</td></tr>
+    <tr><td><span class="tag t-blue">A · 认证开发者</span></td><td>已认证企业主体</td><td>企业实名认证 + <b>域名所有权验证</b> + 公开隐私政策与服务条款 + 可用支持渠道 + 无历史违规</td><td>P0（需安审） / P1 / P2</td></tr>
+    <tr><td><span class="tag t-green">B · 普通开发者</span></td><td>个人 / 小团队</td><td>实名注册 + 签署开发者协议 + 可联系邮箱</td><td>仅 P2（P1 需升级 A 或 S 级担保）</td></tr>
   </table>
+  <ul class="ck">
+    <li><b>身份验证是硬前置</b>：主体未完成实名/企业验证一律不予受理（对标 OpenAI"未验证即拒"）</li>
+    <li><b>特殊类目资质前置</b>：涉金融、医疗、法律、教育等领域，须先提供对应经营资质，无资质不受理</li>
+    <li><b>署名一致性</b>：展示的发布者名称须与验证主体一致，隐私政策/官网/支持链接须公开可访问且归属同一主体</li>
+  </ul>
 
-  <h3>资源风险分级（决定审核路径，见阶段四）</h3>
+  <h3>② 资源风险分级（决定审核路径与是否可自主上架）</h3>
   <div class="risk">
-    <div class="r" style="border-left:4px solid var(--red)"><div class="rl" style="color:var(--red)">P0 高风险</div><div class="rd">涉资金/支付、可写外部系统、访问敏感个人数据、需数据出境、可执行本机命令。强制安全评审。</div></div>
-    <div class="r" style="border-left:4px solid var(--orange)"><div class="rl" style="color:var(--orange)">P1 中风险</div><div class="rd">读写业务数据、需 OAuth/Token 鉴权、有外呼调用。机审+人审。</div></div>
-    <div class="r" style="border-left:4px solid var(--green)"><div class="rl" style="color:var(--green)">P2 低风险</div><div class="rd">纯本地流程 Skill、只读公开数据、无凭证、无外部副作用。机审为主+抽检。</div></div>
+    <div class="r" style="border-left:4px solid var(--red)"><div class="rl" style="color:var(--red)">P0 高风险</div><div class="rd">涉资金/支付、可写外部系统、访问敏感个人信息、数据出境、可执行本机命令或任意代码。<b>永不允许自主上架</b>。</div></div>
+    <div class="r" style="border-left:4px solid var(--orange)"><div class="rl" style="color:var(--orange)">P1 中风险</div><div class="rd">读写业务数据、需 OAuth/Token 鉴权、有外部调用与副作用。<b>白名单下可自主上架，但强制机审+抽检</b>。</div></div>
+    <div class="r" style="border-left:4px solid var(--green)"><div class="rl" style="color:var(--green)">P2 低风险</div><div class="rd">纯本地流程、只读公开数据、无凭证、无外部写操作。<b>白名单下可自主上架</b>。</div></div>
   </div>
-  <p class="tx"><span class="hl">风险级 × 合作方级 = 审核矩阵</span>：如 B 级开发者提交 P0 资源默认不受理，需先升级为 A 级或走 S 级担保。</p>
+  <p class="tx"><span class="hl">风险级 × 合作方级 = 审核矩阵</span>：B 级开发者提交 P0 默认不受理；P0 资源无论主体等级多高，一律走完整三级审核（含安审），不进入自主上架范围。</p>
+
+  <h3>③ 发布权限三级制：从"全审"到"白名单自主上架"</h3>
+  <p class="tx">核心设计思路借鉴 VS Code Verified Publisher 与 OpenAI 的分层信任模型——<b>信任不是申请来的，是用历史记录换来的</b>：先在受控审核下积累合规履历，再逐步授予自主发布权。</p>
+  <div class="flow g">
+    <div class="step"><div class="n">L1</div><div class="st">受控审核</div><div class="sd">新接入默认级别<br>每次提交全流程审核<br>逐版人工把关</div></div>
+    <div class="step"><div class="n">L2</div><div class="st">加速审核</div><div class="sd">机审直通人审<br>免排队 · SLA 缩短<br>增量审只看改动面</div></div>
+    <div class="step"><div class="n">L3</div><div class="st">白名单自主上架</div><div class="sd">机审通过即自动发布<br>人审转为事后抽检<br>平台保留熔断权</div></div>
+  </div>
+
+  <h3>④ 白名单（L3 自主上架）资格线：七项全达标才授予</h3>
+  <table>
+    <tr><th>#</th><th>维度</th><th>量化门槛</th><th>依据</th></tr>
+    <tr><td>1</td><td><b>主体资格</b></td><td>A 级或 S 级；企业实名 + 域名所有权验证 + 公开隐私政策与支持渠道</td><td>OpenAI 身份验证、VS Code 域名验证</td></tr>
+    <tr><td>2</td><td><b>合作履历</b></td><td>接入满 <b>≥ 3 个月</b>，且已有 <b>≥ 3 个</b>资源稳定在架</td><td>VS Code Verified Publisher 需满 6 个月良好信誉（结合平台早期阶段适度放宽）</td></tr>
+    <tr><td>3</td><td><b>审核信誉</b></td><td>近 <b>10 次</b>提交<b>一次过审率 ≥ 80%</b>，且<b>无</b>因安全/合规问题被驳回记录</td><td>主体级信誉分（见第 9 节）</td></tr>
+    <tr><td>4</td><td><b>线上质量</b></td><td>在架资源<b>平均质量分 ≥ 85</b>，无单项 &lt; 70</td><td>质量分模型（见第 7 节）</td></tr>
+    <tr><td>5</td><td><b>安全记录</b></td><td>近 <b>6 个月零</b>安全事件（S1/S2）；历史无数据违规、无恶意行为</td><td>安全一票否决原则</td></tr>
+    <tr><td>6</td><td><b>稳定性</b></td><td>连接器类：<b>SLA ≥ 99.9%</b>、P99 ≤ 3000ms、错误率 ≤ 0.5% 连续 <b>3 个月</b>达标</td><td>连接器规范 v3.0 性能基线</td></tr>
+    <tr><td>7</td><td><b>工程规范</b></td><td>自测覆盖率 100%（每次提交均跑过自测）、版本语义化、变更日志完整、有专责安全联系人</td><td>MCP Registry schema 校验、工程可维护性</td></tr>
+  </table>
+  <div class="callout co-green"><div class="ico">✦</div><div><b>授予方式：</b>白名单按<b>「主体 + 资源类型 + 风险级」三元组</b>颗粒度授予，而非一次性全放开。例如：某 A 级伙伴获授「Skill 类 + P2」自主上架，其连接器与 P1 资源仍需审核。范围可随履历积累逐步扩大，避免一步放开过大风险。<b>有效期 6 个月，到期复核</b>，不自动续期。</div></div>
+
+  <h3>⑤ 白名单也不豁免的四道自动关卡（关键安全设计）</h3>
+  <p class="tx">"自主上架"≠"无人管"。对标 VS Code Marketplace——即使是 Verified Publisher，每次发布仍强制恶意扫描与沙箱检测。以下四关<b>任何等级都不可跳过</b>：</p>
+  <div class="grid2">
+    <div class="cd"><div class="ct"><span class="cbadge t-red">关卡一 · 机审强制</span></div><ul><li>结构/一致性/命名校验不通过 → 直接拦截</li><li>安全扫描（硬编码凭证、危险指令、提示注入）一律执行</li><li>机审失败即自动打回，白名单无法绕过</li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-orange">关卡二 · 破坏性变更拦截</span></div><ul><li>权限扩大、鉴权方式变更、数据流向变化、服务域名变更</li><li>→ 自动<b>降级为人工审核</b>，不允许自主发布</li><li>杜绝"白名单后偷偷提权"</li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-blue">关卡三 · 灰度与观察期</span></div><ul><li>自主上架仍先<b>小流量灰度</b>，非直接全量</li><li>观察期指标异常自动暂停放量并告警</li><li>降低"自主"带来的爆炸半径</li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-purple">关卡四 · 事后抽检与熔断</span></div><ul><li>自主上架资源按比例（建议 ≥ 20%）事后抽检</li><li>发现问题即下架整改 + 主体信誉扣分</li><li>平台永久保留<b>一键熔断</b>与远程停用权</li></ul></div>
+  </div>
+
+  <h3>⑥ 明确不符合上架要求的情形（红线清单）</h3>
+  <p class="tx">以下情形<b>直接驳回</b>，不进入后续评审；命中安全类红线者同时扣减主体信誉分：</p>
+  <div class="grid2">
+    <div class="cd"><div class="ct"><span class="cbadge t-red">主体资格类（直接不受理）</span></div><ul class="ck" style="margin:0">
+      <li class="no">未完成实名/企业身份验证，或署名与验证主体不一致</li>
+      <li class="no">特殊领域（金融/医疗/法律等）无对应经营资质</li>
+      <li class="no">无公开隐私政策、无可用支持联系渠道</li>
+      <li class="no">冒用他方品牌、名称抢注、暗示由官方出品或背书</li>
+      <li class="no">历史存在恶意行为、数据违规且未完成整改</li>
+    </ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-red">安全与隐私类（一票否决）</span></div><ul class="ck" style="margin:0">
+      <li class="no">硬编码 Token/密钥，或要求用户提供无关敏感凭证</li>
+      <li class="no">索取超出功能所需的数据范围（如完整对话历史、精确位置）</li>
+      <li class="no">明文传输敏感数据、未使用 HTTPS</li>
+      <li class="no">含恶意代码、隐蔽外传数据、未声明的数据出境</li>
+      <li class="no">含提示注入、试图越权或操纵模型忽略安全约束</li>
+      <li class="no">可执行任意本机命令且无沙箱与确认机制</li>
+    </ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-orange">功能与描述类（整改后可再提交）</span></div><ul class="ck" style="margin:0">
+      <li class="no">描述/名称与实际功能不符，夸大或误导</li>
+      <li class="no">工具注解与真实行为不一致（把写操作标为只读等）</li>
+      <li class="no">Demo/半成品、核心功能不可用、报错无兜底</li>
+      <li class="no">名称过于笼统（通用词汇、与品牌无关联）</li>
+      <li class="no">与平台既有能力高度重复且无差异化价值</li>
+      <li class="no">未通过性能基线（连接器类）或无压测报告</li>
+    </ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-orange">内容与合规类（直接驳回）</span></div><ul class="ck" style="margin:0">
+      <li class="no">含违法违规、色情暴力、赌博等违规内容</li>
+      <li class="no">侵犯第三方知识产权、未获授权使用素材</li>
+      <li class="no">头像/图标不合规、含敏感或不当元素</li>
+      <li class="no">诱导用户跳出、纯导流性质无实质能力承载</li>
+      <li class="no">在描述或工具说明中贬低、排挤其他服务</li>
+    </ul></div>
+  </div>
+
+  <h3>⑦ 白名单的降级与撤销（动态而非终身）</h3>
+  <table>
+    <tr><th>触发情形</th><th>处置</th></tr>
+    <tr><td>发生 S1 安全事件（数据泄露/越权/恶意代码）</td><td><span class="tag t-red">立即撤销白名单</span> + 熔断相关资源 + 主体降级至 L1</td></tr>
+    <tr><td>抽检发现严重违规，或质量分跌破 70</td><td><span class="tag t-orange">暂停自主上架权</span>，回到 L2 加速审核，整改后可申请复评</td></tr>
+    <tr><td>稳定性连续 2 个月不达标</td><td>缩小白名单范围（如收回连接器类权限）</td></tr>
+    <tr><td>6 个月有效期到期</td><td>按七项资格线<b>重新复核</b>，不自动续期</td></tr>
+  </table>
+  <div class="callout co-orange"><div class="ico">▲</div><div><b>一句话原则：</b>白名单授予的是「<b>免人工排队</b>」，绝不是「免安全校验」。机审、破坏性变更拦截、灰度、事后抽检与熔断这四关对所有等级恒定生效——这是既能大幅提升合作方体验、又不牺牲平台安全底线的关键平衡点。</div></div>
 </section>
+
 
 <!-- 4 阶段二 开发自测 -->
 <section>
@@ -454,8 +543,8 @@ td .tag{white-space:nowrap}
   <h3>分三期落地（按"先止血、再闭环、后运营"排序）</h3>
   <div class="grid3">
     <div class="cd"><div class="ct"><span class="cbadge t-green">一期 · 立标准止血</span></div><ul><li>开发者门户上线，标准全公开</li><li>结构 Linter + 安全扫描（复用现有规范）</li><li>结构化问题码接入审核反馈</li><li><b>存量安全项机扫</b>（先清致命隐患）</li><li><b>安全应急熔断能力</b>（S1 兜底）</li><li><b>先解决"标准不透明+黑盒+存量裸奔"</b></li></ul></div>
-    <div class="cd"><div class="ct"><span class="cbadge t-blue">二期 · 建闭环</span></div><ul><li>沙箱试运行 + 压测预检</li><li>三级分级审核流水线</li><li>灰度上架 + 质量分模型</li><li><b>申诉复议通道 + 审核评分卡</b></li><li><b>版本变更分级</b>（补丁/功能/破坏性）</li><li><b>补齐"自测+分级+后链路+公平"</b></li></ul></div>
-    <div class="cd"><div class="ct"><span class="cbadge t-purple">三期 · 精运营</span></div><ul><li>后链路监控看板 + 自动预警处置</li><li><b>精选/优质分级 + 信誉分</b></li><li><b>判例库 + 双盲抽检一致性</b></li><li><b>标准演进机制</b>（公示/宽限期）</li><li><b>体系度量看板</b>（一次过审率等）</li><li><b>从"管住"到"运营好"</b></li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-blue">二期 · 建闭环</span></div><ul><li>沙箱试运行 + 压测预检</li><li>三级分级审核流水线</li><li>灰度上架 + 质量分模型</li><li><b>申诉复议通道 + 审核评分卡</b></li><li><b>版本变更分级</b>（补丁/功能/破坏性）</li><li><b>白名单试点</b>（选 1-2 家 S 级伙伴，限 P2）</li><li><b>补齐"自测+分级+后链路+公平"</b></li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-purple">三期 · 精运营</span></div><ul><li>后链路监控看板 + 自动预警处置</li><li><b>精选/优质分级 + 信誉分</b></li><li><b>白名单常态化</b>（七项资格线自动核算+到期复核）</li><li><b>判例库 + 双盲抽检一致性</b></li><li><b>标准演进机制</b>（公示/宽限期）</li><li><b>体系度量看板</b>（一次过审率等）</li><li><b>从"管住"到"运营好"</b></li></ul></div>
   </div>
 
   <div class="callout co-orange"><div class="ico">▲</div><div><b>最小可用起点（若资源有限，建议先做这三件）：</b>①<b>把标准写出来并公开</b>（零开发成本，立刻缓解"不知道要求"）②<b>结构 Linter + 结构化问题码</b>（复用现有规范条目即可，直接砍掉大部分来回沟通）③<b>一键熔断能力</b>（安全兜底，避免出事无手段）。这三件投入最小、见效最快，其余可按二三期滚动补齐。</div></div>
