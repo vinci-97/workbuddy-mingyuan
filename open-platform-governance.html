@@ -100,7 +100,7 @@ td .tag{white-space:nowrap}
   <div class="kick">WORKBUDDY OPEN PLATFORM · GOVERNANCE BLUEPRINT</div>
   <h1>生态资源全生命周期标准化体系设计</h1>
   <p>面向 Skill / 专家 / 连接器三类生态资源，构建从「引入 → 自测 → 提交 → 审核 → 上架 → 后链路」的端到端标准化、透明化、可度量的治理体系，同时守住安全底线、拉齐质量水位、优化合作方体验。</p>
-  <div class="meta"><span>三类资源统一治理</span><span>六段全链路</span><span>标准公开 · 自助自测</span><span>分级审核 · 结构化反馈</span><span>安全基线贯穿</span></div>
+  <div class="meta"><span>三类资源统一治理</span><span>六段全链路</span><span>标准公开 · 自助自测</span><span>分级审核 · 结构化反馈</span><span>申诉复议 · 审核一致</span><span>安全基线 · 应急熔断</span><span>质量分 · 体系可度量</span></div>
 </div>
 
 <div class="wrap">
@@ -165,6 +165,11 @@ td .tag{white-space:nowrap}
   </div>
 
   <div class="callout co-green"><div class="ico">✦</div><div>贯穿六段的三条主线：<b>①标准线</b>（每段都有可核对的明文标准）<b>②安全线</b>（凭证/权限/数据/网络四层基线全程校验）<b>③度量线</b>（从提交到线上，用统一质量分持续打分）。</div></div>
+
+  <div class="callout co-orange"><div class="ico">↻</div><div><b>链路不是单向的，必须有三条回路，否则体系会僵化：</b><br>
+  <b>① 申诉回路</b>：审核驳回 → 合作方申诉 → 换人复议 → 争议点回写标准（见第 8 节）<br>
+  <b>② 迭代回路</b>：上架后版本更新 → 按变更影响面分级重审 → 再灰度（见第 10 节）<br>
+  <b>③ 演进回路</b>：线上事故与争议 → 沉淀为新机扫规则/判例 → 反向升级标准与自测工具（见第 10、11 节）</div></div>
 </section>
 
 <!-- 3 阶段一 引入准入 -->
@@ -307,10 +312,131 @@ td .tag{white-space:nowrap}
   </table>
 </section>
 
-<!-- 8 角色权责与落地 -->
+<!-- 8 公平机制：申诉 + 审核一致性 -->
 <section>
-  <div class="sec-h"><div class="no">8</div><h2>角色权责与落地节奏</h2></div>
+  <div class="sec-h"><div class="no">8</div><h2>公平机制：申诉复议与审核一致性</h2></div>
+  <div class="sec-desc">只有"管控"没有"救济"，体验问题不会真正解决；人审有主观性，若不校准，标准就只停留在纸面。这一节保证判定<b>公平且稳定可预期</b>。</div>
+
+  <h3>① 申诉复议通道（避免一次驳回就卡死）</h3>
+  <div class="flow">
+    <div class="step"><div class="n">1</div><div class="st">收到驳回</div><div class="sd">附问题码<br>与依据条款</div></div>
+    <div class="step"><div class="n">2</div><div class="st">发起申诉</div><div class="sd">7 日内提交<br>说明与证据</div></div>
+    <div class="step"><div class="n">3</div><div class="st">复议</div><div class="sd">换人复核<br>非原审核员</div></div>
+    <div class="step"><div class="n">4</div><div class="st">裁定</div><div class="sd">3 工作日内<br>出结论</div></div>
+    <div class="step"><div class="n">5</div><div class="st">规则沉淀</div><div class="sd">争议点回写<br>标准/FAQ</div></div>
+  </div>
+  <ul class="ck">
+    <li><b>换人复核原则</b>：复议必须由非原审核员承担，避免自证；争议较大者上升至审核委员会合议</li>
+    <li><b>误判即修规则</b>：若判定申诉方有理，问题不止于"放行"，还要回写标准或补充判例，防止同类争议重复发生</li>
+    <li><b>驳回必须援引条款</b>：所有驳回意见须标注依据的标准条款号，杜绝"我觉得不行"式判定</li>
+  </ul>
+
+  <h3>② 审核一致性保障（同一份材料，谁审都同一结论）</h3>
+  <div class="grid3">
+    <div class="cd"><div class="ct"><span class="cbadge t-blue">判例库</span></div><ul><li>典型通过/驳回案例入库，可检索</li><li>新审核员先学判例再上手</li><li>合作方也可查阅，预期更明确</li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-orange">双盲抽检</span></div><ul><li>每月抽 10% 已审单交叉复核</li><li>统计审核员间一致率</li><li>一致率 &lt; 90% 触发标准澄清</li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-green">评分卡量化</span></div><ul><li>人审也用评分卡打分，不凭感觉</li><li>每项给分需写理由</li><li>降低主观空间、便于复议对齐</li></ul></div>
+  </div>
+</section>
+
+<!-- 9 正向激励 -->
+<section>
+  <div class="sec-h"><div class="no">9</div><h2>正向激励：让"做得好"有回报</h2></div>
+  <div class="sec-desc">限流下架只能淘汰劣质，真正拉高质量水位靠正向牵引——让高质量资源获得实际收益，合作方才有动力主动做好而非踩线达标。</div>
+
+  <table>
+    <tr><th>等级</th><th>获取条件</th><th>权益</th></tr>
+    <tr><td><span class="tag t-purple">精选 Featured</span></td><td>质量分 ≥ 90 且连续 3 个月无安全/合规事件</td><td>首页推荐位、官方案例包装、联合运营与对外宣传</td></tr>
+    <tr><td><span class="tag t-blue">优质 Verified</span></td><td>质量分 ≥ 85</td><td>搜索与榜单加权、"优质"标识、审核绿色通道（机审直通人审）</td></tr>
+    <tr><td><span class="tag t-green">达标 Standard</span></td><td>质量分 ≥ 70</td><td>正常展示与分发</td></tr>
+  </table>
+
+  <div class="grid2">
+    <div class="cd"><div class="ct"><span class="cbadge t-blue">信誉分（针对合作方主体）</span></div><ul><li>按历史一次过审率、线上事故数、整改响应速度累积</li><li>信誉分高 → 审核提速、可提交更高风险资源</li><li>信誉分低 → 审核加严、限制提交频次</li><li>把"约束"从单个资源上升到<b>主体级信用</b>，长期博弈更有效</li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-green">开发者成长支持</span></div><ul><li>脚手架模板 + 最佳实践样例库</li><li>常见驳回 Top10 及修复指引（数据驱动更新）</li><li>定期开发者答疑与规范宣讲</li><li>把合作方从"被审对象"变成"共建者"</li></ul></div>
+  </div>
+</section>
+
+<!-- 10 版本迭代与标准演进 -->
+<section>
+  <div class="sec-h"><div class="no">10</div><h2>版本迭代与标准演进（体系最易崩的地方）</h2></div>
+  <div class="sec-desc">上架不是终点，资源会改版、平台标准也会升级。若不预设规则，会出现"老资源永远不合规、又不敢下架"的治理烂尾。</div>
+
+  <h3>① 资源版本变更：按影响面分流，不搞一刀切全量重审</h3>
+  <table>
+    <tr><th>变更类型</th><th>判定标准</th><th>审核路径</th></tr>
+    <tr><td><span class="tag t-green">补丁变更</span></td><td>仅文案/描述/图标微调，无能力与权限变化</td><td>机审通过即可发布</td></tr>
+    <tr><td><span class="tag t-orange">功能变更</span></td><td>新增工具/能力，权限范围不变</td><td>机审 + 人审（增量审，只审改动面）</td></tr>
+    <tr><td><span class="tag t-red">破坏性变更</span></td><td>权限扩大、鉴权方式变更、数据流向变化、服务域名变更</td><td>全量重审（含安审）+ 重新灰度</td></tr>
+  </table>
+  <div class="callout co-orange"><div class="ico">▲</div><div><b>关键红线：权限只能减、不能悄悄加。</b>任何扩大数据范围或提权的变更，一律按破坏性变更处理并需用户重新授权——防止"低风险上架、上架后偷偷提权"这一最典型的绕审路径。同时保留<b>版本回滚</b>能力，新版本线上异常可一键回退到上一稳定版。</div></div>
+
+  <h3>② 平台标准自身的演进（向后兼容策略）</h3>
+  <div class="flow g">
+    <div class="step"><div class="n">1</div><div class="st">标准版本化</div><div class="sd">规范语义化版本<br>变更日志公开</div></div>
+    <div class="step"><div class="n">2</div><div class="st">提前公示</div><div class="sd">生效前 30 天通知<br>说明影响面</div></div>
+    <div class="step"><div class="n">3</div><div class="st">宽限期</div><div class="sd">存量资源 90 天<br>过渡整改</div></div>
+    <div class="step"><div class="n">4</div><div class="st">工具先行</div><div class="sd">自测工具同步升级<br>可自查新标准</div></div>
+    <div class="step"><div class="n">5</div><div class="st">强制切换</div><div class="sd">逾期未整改<br>降权/下架</div></div>
+  </div>
+  <p class="tx"><span class="hl">原则：标准升级必须"工具先行、公示在前、留足宽限期"</span>——否则每次升级都会变成一次生态信任损耗。新提交按新标准，存量按宽限期迁移。</p>
+</section>
+
+<!-- 11 存量治理与安全应急 -->
+<section>
+  <div class="sec-h"><div class="no">11</div><h2>存量治理与安全应急响应</h2></div>
+  <div class="sec-desc">新流程只约束新增，但真正的风险往往埋在已上架的存量资源里；同时必须预设"真出安全事故"时的应急动作，不能临场拍脑袋。</div>
+
+  <h3>① 存量资源补齐（新体系落地的第一场硬仗）</h3>
+  <div class="flow">
+    <div class="step"><div class="n">1</div><div class="st">全量盘点</div><div class="sd">已上架资源建档<br>补齐元信息</div></div>
+    <div class="step"><div class="n">2</div><div class="st">风险重评</div><div class="sd">按 P0/P1/P2<br>重新定级</div></div>
+    <div class="step"><div class="n">3</div><div class="st">优先补审</div><div class="sd">P0 优先<br>安全项先行</div></div>
+    <div class="step"><div class="n">4</div><div class="st">限期整改</div><div class="sd">给出整改清单<br>与截止时间</div></div>
+    <div class="step"><div class="n">5</div><div class="st">清退僵尸</div><div class="sd">长期零调用/<br>失联主体下架</div></div>
+  </div>
+  <ul class="ck">
+    <li><b>先扫安全、后补规范</b>：存量治理不追求一次全合规，先用机扫把"硬编码凭证、越权、明文传输"等致命项清掉</li>
+    <li><b>僵尸资源清退</b>：长期零调用、服务已不可达、主体失联的资源应主动下架，减少攻击面与用户踩坑</li>
+    <li class="no"><b>不做的事</b>：不搞"存量一律下架重提"，那会直接摧毁合作方关系；用宽限期+分批迁移替代</li>
+  </ul>
+
+  <h3>② 安全应急响应（SLA 明确到小时）</h3>
+  <table>
+    <tr><th>等级</th><th>场景</th><th>响应时限</th><th>处置动作</th></tr>
+    <tr><td><span class="tag t-red">S1 紧急</span></td><td>数据泄露、越权访问、恶意代码</td><td><b>1 小时内</b></td><td>立即下架/熔断 → 通知受影响用户 → 凭证吊销 → 事后复盘</td></tr>
+    <tr><td><span class="tag t-orange">S2 高</span></td><td>服务大面积不可用、错误率飙升</td><td>4 小时内</td><td>限流或临时下架 → 通知合作方限期修复</td></tr>
+    <tr><td><span class="tag t-green">S3 一般</span></td><td>个别功能异常、体验问题</td><td>1 个工作日</td><td>记录工单 → 纳入迭代整改</td></tr>
+  </table>
+  <div class="callout co-blue"><div class="ico">◆</div><div><b>必备三件套：</b>①<b>一键熔断</b>能力（可按资源/按合作方维度即时停用，不依赖发版）②<b>用户告知机制</b>（受影响用户可触达、说明影响与建议动作）③<b>复盘归档</b>（每次 S1/S2 事件产出复盘，问题回写标准与机扫规则，形成"事故→规则"的正反馈）。</div></div>
+</section>
+
+<!-- 12 体系自身的度量 -->
+<section>
+  <div class="sec-h"><div class="no">12</div><h2>体系自身的度量：怎么证明它真的变好了</h2></div>
+  <div class="sec-desc">治理体系也需要被度量，否则无法判断有效性、也无法持续迭代。以下指标建议按月看板化，作为体系是否奏效的判据。</div>
+
+  <div class="kpi">
+    <div class="k"><div class="kv">↑</div><div class="kl"><b>一次过审率</b><br>衡量标准是否讲清楚了</div></div>
+    <div class="k"><div class="kv">↓</div><div class="kl"><b>平均过审周期</b><br>提交到上架的总时长</div></div>
+    <div class="k"><div class="kv">↓</div><div class="kl"><b>人工介入率</b><br>需拉人对齐的单量占比</div></div>
+    <div class="k"><div class="kv">↓</div><div class="kl"><b>返工轮次</b><br>平均打回次数</div></div>
+  </div>
+  <div class="kpi">
+    <div class="k"><div class="kv">↑</div><div class="kl"><b>自测覆盖率</b><br>提交前跑过自测的比例</div></div>
+    <div class="k"><div class="kv">↑</div><div class="kl"><b>上架资源平均质量分</b><br>生态质量水位</div></div>
+    <div class="k"><div class="kv">↓</div><div class="kl"><b>线上事故数</b><br>安全与稳定性底线</div></div>
+    <div class="k"><div class="kv">↑</div><div class="kl"><b>审核一致率</b><br>双盲抽检结论一致度</div></div>
+  </div>
+
+  <div class="callout co-green"><div class="ico">✦</div><div><b>北极星指标建议：</b>「<b>一次过审率</b>」+「<b>人工介入率</b>」这一升一降最能反映体系核心价值——前者说明标准与自测工具真的让开发者<b>提交前就能做对</b>，后者说明反馈真的<b>可自助修复、不用拉人</b>，这正是你当前最痛的两点。质量与安全侧则看「平均质量分↑ + 线上事故数↓」。</div></div>
+</section>
+
+<!-- 13 角色权责与落地 -->
+<section>
+  <div class="sec-h"><div class="no">13</div><h2>角色权责与落地节奏</h2></div>
   <div class="sec-desc">体系要跑起来，靠的是清晰的权责分工 + 分期落地，避免一次性铺太大。</div>
+
 
   <h3>全链路 RACI（谁负责什么）</h3>
   <table>
@@ -320,16 +446,21 @@ td .tag{white-space:nowrap}
     <tr><td>审核</td><td>提交 · 修复</td><td><b>人审 · 决策</b></td><td>机审引擎 · 安审支持</td></tr>
     <tr><td>上架/灰度</td><td>确认</td><td><b>灰度策略 · 放量</b></td><td>灰度与回滚能力</td></tr>
     <tr><td>后链路</td><td>响应整改</td><td><b>监控 · 巡检 · 处置</b></td><td>监控看板 · 告警</td></tr>
+    <tr><td>申诉复议</td><td>发起申诉 · 举证</td><td><b>换人复核 · 裁定 · 回写规则</b></td><td>争议技术判定支持</td></tr>
+    <tr><td>存量治理</td><td>限期整改</td><td><b>盘点 · 定级 · 推进清退</b></td><td>批量机扫能力</td></tr>
+    <tr><td>安全应急</td><td>配合修复</td><td><b>定级 · 决策熔断 · 用户告知</b></td><td><b>一键熔断 · 溯源</b></td></tr>
   </table>
 
-  <h3>分三期落地</h3>
+  <h3>分三期落地（按"先止血、再闭环、后运营"排序）</h3>
   <div class="grid3">
-    <div class="cd"><div class="ct"><span class="cbadge t-green">一期 · 立标准</span></div><ul><li>开发者门户上线，标准全公开</li><li>结构 Linter + 安全扫描（复用现有规范）</li><li>结构化问题码接入审核反馈</li><li><b>先解决"标准不透明+黑盒"</b></li></ul></div>
-    <div class="cd"><div class="ct"><span class="cbadge t-blue">二期 · 建闭环</span></div><ul><li>沙箱试运行 + 压测预检</li><li>三级分级审核流水线</li><li>灰度上架 + 质量分模型</li><li><b>补齐"自测+分级+后链路"</b></li></ul></div>
-    <div class="cd"><div class="ct"><span class="cbadge t-purple">三期 · 精运营</span></div><ul><li>后链路监控看板 + 自动预警处置</li><li>合作方分级权益 + 联合运营</li><li>质量分驱动的推荐与激励</li><li><b>从"管住"到"运营好"</b></li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-green">一期 · 立标准止血</span></div><ul><li>开发者门户上线，标准全公开</li><li>结构 Linter + 安全扫描（复用现有规范）</li><li>结构化问题码接入审核反馈</li><li><b>存量安全项机扫</b>（先清致命隐患）</li><li><b>安全应急熔断能力</b>（S1 兜底）</li><li><b>先解决"标准不透明+黑盒+存量裸奔"</b></li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-blue">二期 · 建闭环</span></div><ul><li>沙箱试运行 + 压测预检</li><li>三级分级审核流水线</li><li>灰度上架 + 质量分模型</li><li><b>申诉复议通道 + 审核评分卡</b></li><li><b>版本变更分级</b>（补丁/功能/破坏性）</li><li><b>补齐"自测+分级+后链路+公平"</b></li></ul></div>
+    <div class="cd"><div class="ct"><span class="cbadge t-purple">三期 · 精运营</span></div><ul><li>后链路监控看板 + 自动预警处置</li><li><b>精选/优质分级 + 信誉分</b></li><li><b>判例库 + 双盲抽检一致性</b></li><li><b>标准演进机制</b>（公示/宽限期）</li><li><b>体系度量看板</b>（一次过审率等）</li><li><b>从"管住"到"运营好"</b></li></ul></div>
   </div>
 
-  <div class="callout co-blue"><div class="ico">◆</div><div><b>一句话总结体系价值：</b>把"做完盲传→黑盒审核→上架失联"的原始链路，升级为"<b>标准可查、提交前自测绿灯、审核可定位、上架先灰度、线上有分有监控</b>"的透明闭环——用户体验更好、安全底线更稳、生态质量水位更高。</div></div>
+  <div class="callout co-orange"><div class="ico">▲</div><div><b>最小可用起点（若资源有限，建议先做这三件）：</b>①<b>把标准写出来并公开</b>（零开发成本，立刻缓解"不知道要求"）②<b>结构 Linter + 结构化问题码</b>（复用现有规范条目即可，直接砍掉大部分来回沟通）③<b>一键熔断能力</b>（安全兜底，避免出事无手段）。这三件投入最小、见效最快，其余可按二三期滚动补齐。</div></div>
+
+  <div class="callout co-blue"><div class="ico">◆</div><div><b>一句话总结体系价值：</b>把"做完盲传→黑盒审核→上架失联"的原始链路，升级为"<b>标准可查、提交前自测绿灯、审核可定位可申诉、上架先灰度、线上有分有监控、出事有熔断</b>"的透明闭环——对合作方体验更好、对平台安全底线更稳、对生态质量水位更高，且体系自身可被度量与迭代。</div></div>
 </section>
 
 <div class="foot">WorkBuddy 开放平台 · 生态资源全生命周期标准化体系设计 · 供部门内部规划与落地讨论使用</div>
